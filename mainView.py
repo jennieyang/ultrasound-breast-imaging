@@ -11,7 +11,8 @@ class MainView():
         if dlg.exec_():
             filePath = dlg.selectedFiles()[0]
             lineEditWidget.setText(filePath)
-        return filePath '''@TODO: add check for OK or Cancel press'''
+        '''@TODO: add check for OK or Cancel press'''
+        return filePath
 
     def browseWaveFile(self, nameFilters):
         return self.getFile(self.form.lineEdit_waveFileName, nameFilters)
