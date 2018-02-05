@@ -27,7 +27,10 @@ class InputValidator():
             seq.append(trans)
         self.transSeq = seq
         return (self.validateTx(), self.validateRx())
-        
+    
+    def getNumSeq(self):
+        return len(self.transSeq)
+    
     def validateTx(self):
         invalidRows = []
         for row in range(0, len(self.transSeq)):

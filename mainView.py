@@ -1,6 +1,7 @@
 import PyQt5
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
+import utility
 
 class MainView():
     def __init__(self, form):
@@ -87,3 +88,13 @@ class MainView():
         
     def addEmptyRow(self):
         self.addTableItem("","")
+        
+    def updateTable(self, filepath):
+        # read selected config file
+        cfg = utility.ConfigFileParser(filepath)
+        try:
+            sequence = cfg.getTransducerSeq("RUN")
+            for s in sequence:
+                self.addTableItem(s[0], s[1])
+        except:
+            print("There was an error parsing selected transducer file " + filepath)

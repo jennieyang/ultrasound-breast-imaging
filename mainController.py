@@ -7,8 +7,7 @@ import utility
 import inputValidator
 
 class MainController():
-    def setup(self, form, dialog, view):
-        self.form = form
+    def setup(self, dialog, view):
         self.dialog = dialog
         self.view = view
         self.iv = None
@@ -37,7 +36,8 @@ class MainController():
         # initialize switch
         switch = raspi.switch.Switch(self.dialog)
         
-        numSequences = self.form.tableWidget_transConfig.rowCount()
+        # execute sequences
+        numSequences = self.iv.getNumSeq()
         for r in range(0, numSequences):
             self.dialog.sendMsg("<br>Executing sequence %d" % (r+1), "red")
             
@@ -73,15 +73,3 @@ class MainController():
             
             raspi.waveformGenerator.sendWaveform(self.dialog)
         self.dialog.sendMsg("<br>Test complete", "red")
-
-        
-    def updateTable(self, filepath):
-        # read selected config file
-        cfg = utility.ConfigFileParser(filepath)
-        try:
-            sequence = cfg.getTransducerSeq("RUN")
-            for s in sequence:
-                self.view.addTableItem(s[0], s[1])
-        except:
-            print("There was an error parsing selected transducer file " + filepath)
-    
