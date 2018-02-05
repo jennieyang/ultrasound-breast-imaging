@@ -63,21 +63,24 @@ class InputValidator():
                 invalidRows.append(row)
         return invalidRows
     
+    def getWave(self):
+        if (self.waveSelection == 0):
+            # defined waveform
+            wave = self.waveType
+        else:
+            # arbitrary waveform
+            wave = self.waveFile
+        return wave
+    
     def getWaveSelection(self):
         return self.waveSelection
         
     def setWaveSelection(self, value):
         self.waveSelection = value
-        
-    def getWaveFile(self):
-        return self.waveFile
 		
     def setWaveFile(self, value):
         self.waveFile = value
         
-    def getWaveType(self):
-        return self.waveType
-		
     def setWaveType(self, value):
         self.waveType = value
     

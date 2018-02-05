@@ -22,25 +22,18 @@ class MainController():
         else:
             # open error dialog
             print("Error: check highlighted input fields")
-            
+    
     def beginAcquisition(self):
         self.dialog.clear()
         self.dialog.show()
-        self.dialog.sendMsg(self.iv.getWaveType())
-        self.dialog.sendMsg(self.iv.getAmp())
-        self.dialog.sendMsg(self.iv.getFreq())
-        self.dialog.sendMsg(self.iv.getNumSamps())
-        self.dialog.sendMsg(self.iv.getSampRate())
         
+        self.dialog.sendMsg("Executing initialization sequence...", "red")
+        # initialize waveform generator
+        wg = raspi.waveformGenerator.WaveformGenerator(self.dialog, self.iv.getWaveSelection(), self.iv.getWave(), self.iv.getFreq(), self.iv.getAmp())
+        wg.configure()
+                
         self.dialog.sendMsg("Beginning acquisition...")
         self.dialog.sendMsg("Total sequences: %d" % self.form.tableWidget_transConfig.rowCount())
-        
-        if (self.iv.getWaveSelection() == 0):
-            # defined waveform
-            print(self.iv.getWaveType())
-        else:
-            # arbitrary waveform
-            print(self.iv.getWaveFile())
             
         for r in range(0,self.form.tableWidget_transConfig.rowCount()):
             txList = self.iv.getTransSeq()[r][0]
@@ -50,7 +43,6 @@ class MainController():
             raspi.switch.configureSwitch(txList, rxList, self.dialog)
             
             # transmit waveform
-            raspi.waveformGenerator.sendWaveform(self.dialog)
             
         # receive data
         '''@TODO: get acquisition folder from config file'''
