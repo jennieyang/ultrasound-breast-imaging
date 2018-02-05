@@ -2,7 +2,7 @@ import PyQt5
 from PyQt5.QtWidgets import *
 import raspi.switch
 import raspi.transmission
-import raspi.acquisition
+import raspi.fpga
 import utility
 import inputValidator
 
@@ -54,7 +54,7 @@ class MainController():
             
         # receive data
         '''@TODO: get acquisition folder from config file'''
-        raspi.acquisition.receiveData("C:/Users/Jennie/Desktop/Acquisitions", self.dialog)    
+        raspi.fpga.receiveData("C:/Users/Jennie/Desktop/Acquisitions", self.dialog)    
         self.dialog.sendMsg("<br>Acquisition complete", "red")
         
     def runTest(self):
