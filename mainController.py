@@ -11,6 +11,9 @@ class MainController():
         self.dialog = dialog
         self.view = view
     
+    '''@TODO: move/change runTest and beginAcquisition, state machine..., combine??
+                beginAcquisition -> get all fields, do checks
+                runTest -> jump straight to state machine'''
     def beginAcquisition(self):
         self.dialog.clear()
         self.dialog.show()
@@ -39,7 +42,7 @@ class MainController():
         self.dialog.show()
         self.dialog.sendMsg("Running test...")
         
-        '''@TODO: get filepath from cmd line arguments with argparser & pass from main'''
+        '''@TODO: get filepath of cfg file in current dir with sys.os.path'''
         cfg = utility.ConfigFileParser("C:/Users/Jennie/Desktop/Capstone/default.ini")   
         
         sequence = cfg.getTransducerSeq("TEST")
@@ -53,25 +56,14 @@ class MainController():
             raspi.transmission.sendWaveform(self.dialog)
         self.dialog.sendMsg("<br>Test complete", "red")
 
-    def browseWaveFile(self):
-        self.view.browseWaveFile(['Text Files (*.txt)', 'All Files (*.*)'])
-        
-    def browseTransFile(self):
-        filepath = self.view.browseTransFile(['INI Files (*.ini)', 'All Files (*.*)'])
-        self.updateTable(filepath)
-        
-    def selectWaveform(self):
-        self.view.en_selectWave()
-        
-    def loadWaveFile(self):
-        self.view.en_loadWaveFile()
         
     def updateTable(self, filepath):
         # read selected config file
         cfg = utility.ConfigFileParser(filepath)
-        sequence = cfg.getTransducerSeq("RUN")
-        for s in sequence:
-            self.view.addTableItem(s[0], s[1])
-            
-    def addEmptyRow(self):
-        self.view.addTableItem("","")
+        try:
+            sequence = cfg.getTransducerSeq("RUN")
+            for s in sequence:
+                self.view.addTableItem(s[0], s[1])
+        except:
+            print("There was an error parsing selected transducer file " + filepath)
+    

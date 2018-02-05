@@ -11,14 +11,12 @@ class MainView():
         if dlg.exec_():
             filePath = dlg.selectedFiles()[0]
             lineEditWidget.setText(filePath)
-        '''@TODO: add check for OK or Cancel press'''
-        return filePath
 
-    def browseWaveFile(self, nameFilters):
-        return self.getFile(self.form.lineEdit_waveFileName, nameFilters)
+    def browseWaveFile(self):
+        self.getFile(self.form.lineEdit_waveFileName, ['Text Files (*.txt)', 'All Files (*.*)'])
         
-    def browseTransFile(self, nameFilters):
-        return self.getFile(self.form.lineEdit_transFileName, nameFilters)
+    def browseTransFile(self):
+        self.getFile(self.form.lineEdit_transFileName, ['INI Files (*.ini)', 'All Files (*.*)'])
     
     def en_selectWave(self):
         self.form.widget_loadWaveFile.setEnabled(False)
@@ -46,3 +44,6 @@ class MainView():
         # set row with tx and rx
         self.form.tableWidget_transConfig.setItem(rowPosition,0,QTableWidgetItem(txList))
         self.form.tableWidget_transConfig.setItem(rowPosition,1,QTableWidgetItem(rxList))
+        
+    def addEmptyRow(self):
+        self.addTableItem("","")

@@ -21,14 +21,15 @@ class MainWindow(QMainWindow, gui.mainwindowUi.Ui_MainWindow):
         controller.setup(self, dialog, view)
         
         self.actionQuit.triggered.connect(self.close) # Quit menu item or shortcut triggered
-        self.pushButton_waveBrowse.clicked.connect(controller.browseWaveFile)
-        self.pushButton_transBrowse.clicked.connect(controller.browseTransFile)
-        self.radioButton_selectWaveform.clicked.connect(controller.selectWaveform)
-        self.radioButton_loadWaveFile.clicked.connect(controller.loadWaveFile)
+        self.pushButton_waveBrowse.clicked.connect(view.browseWaveFile)
+        self.pushButton_transBrowse.clicked.connect(view.browseTransFile)
+        self.radioButton_selectWaveform.clicked.connect(view.en_selectWave)
+        self.radioButton_loadWaveFile.clicked.connect(view.en_loadWaveFile)
         self.pushButton_begin.clicked.connect(controller.beginAcquisition)
         self.pushButton_runTest.clicked.connect(controller.runTest)
-        #self.lineEdit_transFileName.textChanged.connect(controller.updateTable)
-        self.pushButton_addRow.clicked.connect(controller.addEmptyRow)
+        self.pushButton_addRow.clicked.connect(view.addEmptyRow)
+        
+        self.lineEdit_transFileName.textChanged.connect(lambda: controller.updateTable(self.lineEdit_transFileName.text()))
 
 class Dialog(QDialog, gui.dialogUi.Ui_Dialog):
     def __init__(self):
