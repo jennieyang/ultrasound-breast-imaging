@@ -17,10 +17,10 @@ class MainController():
         self.iv = iv
         self.view.setParams(iv)
         
-        self.dialog.clear()
-        self.dialog.show()
-        self.dialog.sendMsg("Running Acquisition", "red")
         if iv.isValid():
+            self.dialog.clear()
+            self.dialog.show()
+            self.dialog.sendMsg("Running Acquisition", "red")
             self.beginAcquisition()
         else:
             # open error dialog
@@ -39,10 +39,10 @@ class MainController():
         iv.setNumSamps(100)
         iv.setSampRate(50)
         
-        self.dialog.clear()
-        self.dialog.show()
-        self.dialog.sendMsg("Running Test", "red")
         if iv.isValid():
+            self.dialog.clear()
+            self.dialog.show()
+            self.dialog.sendMsg("Running Test", "red")
             self.beginAcquisition()
         else:
             print("Error: check test input values")
