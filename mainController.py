@@ -12,20 +12,42 @@ class MainController():
         self.view = view
         self.iv = None
         
-    def validateInput(self):
+    def validateAcqInput(self):
         iv = inputValidator.InputValidator()
         self.iv = iv
         self.view.setParams(iv)
+        
+        self.dialog.clear()
+        self.dialog.show()
+        self.dialog.sendMsg("Running Acquisition"m "red")
         if iv.isValid():
             self.beginAcquisition()
         else:
             # open error dialog
             print("Error: check highlighted input fields")
-    
-    def beginAcquisition(self):
+        
+    def validateTestInput(self):
+        iv = inputValidator.InputValidator()
+        self.iv = iv
+        '''@TODO: remove hard-coded file path'''
+        cfg = utility.ConfigFileParser("C:/Users/Jennie/Desktop/Capstone/default.ini")
+        iv.setTransSeq(cfg.getTransducerSeq("TEST"))
+        iv.setWaveSelection(0)
+        iv.setWaveType("Sinusoid")
+        iv.setAmp(5)
+        iv.setFreq(1000000)
+        iv.setNumSamps(100)
+        iv.setSampRate(50)
+        
         self.dialog.clear()
         self.dialog.show()
-        
+        self.dialog.sendMsg("Running Test", "red")
+        if iv.isValid():
+            self.beginAcquisition()
+        else:
+            print("Error: check test input values")
+    
+    def beginAcquisition(self):
         self.dialog.sendMsg("Executing initialization sequence", "red")
         # initialize waveform generator
         wg = raspi.waveformGenerator.WaveformGenerator(self.dialog, self.iv.getWaveSelection(), self.iv.getWave(), self.iv.getFreq(), self.iv.getAmp())
@@ -54,22 +76,3 @@ class MainController():
         '''@TODO: get acquisition folder from config file'''
         fpga.receiveData("C:/Users/Jennie/Desktop/Acquisitions")
         self.dialog.sendMsg("<br>Acquisition complete.", "blue")
-        
-    def runTest(self):
-        self.dialog.clear()
-        self.dialog.show()
-        self.dialog.sendMsg("Running test...")
-        
-        '''@TODO: get filepath of cfg file in current dir with sys.os.path'''
-        cfg = utility.ConfigFileParser("C:/Users/Jennie/Desktop/Capstone/default.ini")   
-        
-        sequence = cfg.getTransducerSeq("TEST")
-        r=1
-        for s in sequence:
-            transducers = utility.parse(s[0], s[1])
-            self.dialog.sendMsg("<br>Executing sequence %d" % r, 'red')
-            raspi.switch.configureSwitch(transducers[0], transducers[1], self.dialog)
-            r = r+1
-            
-            raspi.waveformGenerator.sendWaveform(self.dialog)
-        self.dialog.sendMsg("<br>Test complete", "red")

@@ -28,8 +28,8 @@ class MainWindow(QMainWindow, gui.mainwindowUi.Ui_MainWindow):
         self.pushButton_addRow.clicked.connect(view.addEmptyRow)
         self.lineEdit_transFileName.textChanged.connect(lambda: view.updateTable(self.lineEdit_transFileName.text()))
         
-        self.pushButton_begin.clicked.connect(controller.validateInput)
-        self.pushButton_runTest.clicked.connect(controller.runTest)
+        self.pushButton_begin.clicked.connect(controller.validateAcqInput)
+        self.pushButton_runTest.clicked.connect(controller.validateTestInput)
         
 
 class Dialog(QDialog, gui.dialogUi.Ui_Dialog):
