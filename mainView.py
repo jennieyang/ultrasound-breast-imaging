@@ -3,24 +3,22 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 
 class MainView():
-    def __init__(self, form, inputValidator):
+    def __init__(self, form):
         self.form = form
-        self.iv = inputValidator
     
-    def setParams(self):
-        invalidTrans = self.iv.setTransSeq(self.getTransConfig())
+    def setParams(self, iv):
+        invalidTrans = iv.setTransSeq(self.getTransConfig())
         # highlight invalid tx cells
         self.setCellHighlight(invalidTrans[0], 0)
         # highlight invalid rx cells
         self.setCellHighlight(invalidTrans[1], 1)
             
-        self.iv.setWaveFile(self.form.lineEdit_waveFileName.text())
-        self.iv.setWaveType(self.form.comboBox_waveform.currentText())
-        self.iv.setAmp(self.form.lineEdit_amplitude.text())
-        self.iv.setFreq(self.form.lineEdit_freq.text())
-        self.iv.setNumSamps(self.form.lineEdit_numSamps.text())
-        self.iv.setSampRate(self.form.lineEdit_sampRate.text())
-        self.iv.validate()
+        iv.setWaveFile(self.form.lineEdit_waveFileName.text())
+        iv.setWaveType(self.form.comboBox_waveform.currentText())
+        iv.setAmp(self.form.lineEdit_amplitude.text())
+        iv.setFreq(self.form.lineEdit_freq.text())
+        iv.setNumSamps(self.form.lineEdit_numSamps.text())
+        iv.setSampRate(self.form.lineEdit_sampRate.text())
     
     def setCellHighlight(self, list, col):
         for row in range(0, self.form.tableWidget_transConfig.rowCount()):

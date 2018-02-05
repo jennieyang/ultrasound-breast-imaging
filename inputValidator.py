@@ -1,8 +1,7 @@
 import utility
 
 class InputValidator():
-    def __init__(self, controller):
-        self.controller = controller
+    def __init__(self):
         self.transSeq = None
         self.waveFile = None
         self.waveType = None
@@ -10,11 +9,10 @@ class InputValidator():
         self.freq = None
         self.numSamps = None
         self.sampRate = None
+        self.valid = True
     
-    def validate(self):
-        self.validateRx()
-        self.validateTx()
-        self.controller.beginAcquisition()
+    def isValid(self):
+        return self.valid
     
     def getTransSeq(self):
         return self.transSeq
@@ -37,6 +35,7 @@ class InputValidator():
             # must be between 1 and 60 (inclusive)
             if (len(txList) != 1) or (txList[0] < 1) or (txList[0] > 60):
                 invalidRows.append(row)
+                self.valid = False
             row = row + 1
         return invalidRows
     
@@ -55,6 +54,7 @@ class InputValidator():
                 boardNum = rxNum % NUM_BOARDS
                 if (flag[boardNum] != 0) or (rxNum == txNum) or (rxNum < 1) or (rxNum > 60): 
                     valid = False
+                    self.valid = False
                 else:
                 # valid & no transducers selected from boardNum yet
                     flag[boardNum] = 1

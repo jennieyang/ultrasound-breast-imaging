@@ -7,19 +7,25 @@ import utility
 import inputValidator
 
 class MainController():
-    def setup(self, form, dialog, view, inputValidator):
+    def setup(self, form, dialog, view):
         self.form = form
         self.dialog = dialog
         self.view = view
-        self.iv = inputValidator
-    
-    '''@TODO: move/change runTest and beginAcquisition, state machine..., combine??
-                beginAcquisition -> get all fields, do checks
-                runTest -> jump straight to state machine'''
+        self.iv = None
+        
+    def validateInput(self):
+        iv = inputValidator.InputValidator()
+        self.iv = iv
+        self.view.setParams(iv)
+        if iv.isValid():
+            self.beginAcquisition()
+        else:
+            # open error dialog
+            print("error")
+            
     def beginAcquisition(self):
         self.dialog.clear()
         self.dialog.show()
-        self.dialog.sendMsg(self.iv.getTransSeq())
         self.dialog.sendMsg(self.iv.getWaveType())
         self.dialog.sendMsg(self.iv.getAmp())
         self.dialog.sendMsg(self.iv.getFreq())
@@ -29,14 +35,12 @@ class MainController():
         self.dialog.sendMsg("Beginning acquisition...")
         self.dialog.sendMsg("Total sequences: %d" % self.form.tableWidget_transConfig.rowCount())
         
-        '''@TODO: remove form dependency & convert transducer configs to model data'''
         for r in range(0,self.form.tableWidget_transConfig.rowCount()):
-            txList = self.form.tableWidget_transConfig.item(r,0).text()
-            rxList = self.form.tableWidget_transConfig.item(r,1).text()
-            transducers = utility.parse(txList,rxList) # parse string entry and order values
+            txList = self.iv.getTransSeq()[r][0]
+            rxList = self.iv.getTransSeq()[r][1]
             
             self.dialog.sendMsg("<br>Executing sequence %d" % (r+1), 'red')
-            raspi.switch.configureSwitch(transducers[0], transducers[1], self.dialog)
+            raspi.switch.configureSwitch(txList, rxList, self.dialog)
             
             # transmit waveform
             raspi.transmission.sendWaveform(self.dialog)
