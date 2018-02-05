@@ -1,7 +1,7 @@
 import PyQt5
 from PyQt5.QtWidgets import *
 import raspi.switch
-import raspi.transmission
+import raspi.waveformGenerator
 import raspi.fpga
 import utility
 import inputValidator
@@ -50,7 +50,7 @@ class MainController():
             raspi.switch.configureSwitch(txList, rxList, self.dialog)
             
             # transmit waveform
-            raspi.transmission.sendWaveform(self.dialog)
+            raspi.waveformGenerator.sendWaveform(self.dialog)
             
         # receive data
         '''@TODO: get acquisition folder from config file'''
@@ -73,7 +73,7 @@ class MainController():
             raspi.switch.configureSwitch(transducers[0], transducers[1], self.dialog)
             r = r+1
             
-            raspi.transmission.sendWaveform(self.dialog)
+            raspi.waveformGenerator.sendWaveform(self.dialog)
         self.dialog.sendMsg("<br>Test complete", "red")
 
         
