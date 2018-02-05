@@ -19,7 +19,7 @@ class MainController():
         
         self.dialog.clear()
         self.dialog.show()
-        self.dialog.sendMsg("Running Acquisition"m "red")
+        self.dialog.sendMsg("Running Acquisition", "red")
         if iv.isValid():
             self.beginAcquisition()
         else:
