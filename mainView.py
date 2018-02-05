@@ -7,12 +7,22 @@ class MainView():
         self.iv = inputValidator
     
     def setParams(self):
+        self.iv.setTransSeq(self.getTransConfig)
+        self.iv.setWaveFile(self.form.lineEdit_waveFileName.text())
         self.iv.setWaveType(self.form.comboBox_waveform.currentText())
         self.iv.setAmp(self.form.lineEdit_amplitude.text())
         self.iv.setFreq(self.form.lineEdit_freq.text())
         self.iv.setNumSamps(self.form.lineEdit_numSamps.text())
         self.iv.setSampRate(self.form.lineEdit_sampRate.text())
         self.iv.validate()
+    
+    def getTransConfig(self):
+        transConfig = []
+        for r in range(0,self.form.tableWidget_transConfig.rowCount()):
+            txList = self.form.tableWidget_transConfig.item(r,0).text()
+            rxList = self.form.tableWidget_transConfig.item(r,1).text()
+            transConfig.append([txList, rxList])
+        return transConfig
     
     def getFile(self, lineEditWidget, nameFilters):
         dlg = QFileDialog()
