@@ -19,6 +19,7 @@ class MainController():
     def beginAcquisition(self):
         self.dialog.clear()
         self.dialog.show()
+        self.dialog.sendMsg(self.iv.getTransSeq())
         self.dialog.sendMsg(self.iv.getWaveType())
         self.dialog.sendMsg(self.iv.getAmp())
         self.dialog.sendMsg(self.iv.getFreq())

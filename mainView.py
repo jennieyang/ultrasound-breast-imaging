@@ -1,5 +1,6 @@
 import PyQt5
 from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
 
 class MainView():
     def __init__(self, form, inputValidator):
@@ -7,7 +8,12 @@ class MainView():
         self.iv = inputValidator
     
     def setParams(self):
-        self.iv.setTransSeq(self.getTransConfig)
+        invalidTrans = self.iv.setTransSeq(self.getTransConfig())
+        # highlight invalid tx cells
+        self.setCellHighlight(invalidTrans[0], 0)
+        # highlight invalid rx cells
+        self.setCellHighlight(invalidTrans[1], 1)
+            
         self.iv.setWaveFile(self.form.lineEdit_waveFileName.text())
         self.iv.setWaveType(self.form.comboBox_waveform.currentText())
         self.iv.setAmp(self.form.lineEdit_amplitude.text())
@@ -15,6 +21,15 @@ class MainView():
         self.iv.setNumSamps(self.form.lineEdit_numSamps.text())
         self.iv.setSampRate(self.form.lineEdit_sampRate.text())
         self.iv.validate()
+    
+    def setCellHighlight(self, list, col):
+        for row in range(0, self.form.tableWidget_transConfig.rowCount()):
+            if row in list:
+                # highlight cells at (row, col) contained in lists
+                self.form.tableWidget_transConfig.item(row, col).setBackground(QColor(255,100,100))
+            else:
+                # reset highlight
+                self.form.tableWidget_transConfig.item(row, col).setBackground(QColor(255,255,255))
     
     def getTransConfig(self):
         transConfig = []

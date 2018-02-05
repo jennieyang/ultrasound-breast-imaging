@@ -1,3 +1,5 @@
+import utility
+
 class InputValidator():
     def __init__(self, controller):
         self.controller = controller
@@ -10,14 +12,56 @@ class InputValidator():
         self.sampRate = None
     
     def validate(self):
+        self.validateRx()
+        self.validateTx()
         self.controller.beginAcquisition()
     
     def getTransSeq(self):
         return self.transSeq
         
     def setTransSeq(self, value):
-        self.transSeq = value
+        seq = []
+        for r in range(0, len(value)):
+            txList = value[r][0]
+            rxList = value[r][1]
+            trans = utility.parse(txList,rxList) # parse string entry and order values
+            seq.append(trans)
+        self.transSeq = seq
+        return (self.validateTx(), self.validateRx())
+        
+    def validateTx(self):
+        invalidRows = []
+        for row in range(0, len(self.transSeq)):
+            txList = self.transSeq[row][0]
+            # only one transmitter allowed
+            # must be between 1 and 60 (inclusive)
+            if (len(txList) != 1) or (txList[0] < 1) or (txList[0] > 60):
+                invalidRows.append(row)
+            row = row + 1
+        return invalidRows
     
+    def validateRx(self):
+        NUM_BOARDS = 4
+        invalidRows = []
+        for row in range(0, len(self.transSeq)):
+            txNum = self.transSeq[row][0][0]
+            rxList = self.transSeq[row][1]
+            valid = True
+            flag = [0] * NUM_BOARDS
+            # only one transducer can be transmitting per board
+            # can't contain same transducer as Tx
+            # must be between 1 and 60 (inclusive)
+            for rxNum in rxList:
+                boardNum = rxNum % NUM_BOARDS
+                if (flag[boardNum] != 0) or (rxNum == txNum) or (rxNum < 1) or (rxNum > 60): 
+                    valid = False
+                else:
+                # valid & no transducers selected from boardNum yet
+                    flag[boardNum] = 1
+            if not valid:
+                invalidRows.append(row)
+        return invalidRows
+            
     def getWaveFile(self):
         return self.waveFile
 		
