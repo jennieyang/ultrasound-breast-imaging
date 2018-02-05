@@ -57,9 +57,6 @@
        <item>
         <widget class="QWidget" name="widget_acqOptions" native="true">
          <layout class="QGridLayout" name="gridLayout_6">
-          <item row="2" column="1">
-           <widget class="QLineEdit" name="lineEdit_sampRate"/>
-          </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_numSamps">
             <property name="sizePolicy">
@@ -81,6 +78,12 @@
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
             </property>
            </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="lineEdit_numSamps"/>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="lineEdit_sampRate"/>
           </item>
           <item row="2" column="0">
            <widget class="QLabel" name="label_sampRate">
@@ -104,21 +107,19 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
-           <widget class="QLineEdit" name="lineEdit_numSamps"/>
-          </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="label_signalAvg">
+          <item row="1" column="2">
+           <widget class="QLabel" name="label_numSampsUnit">
             <property name="text">
-             <string>Signal Averaging:</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             <string>Samples</string>
             </property>
            </widget>
           </item>
-          <item row="3" column="1">
-           <widget class="QLineEdit" name="lineEdit_signalAvg"/>
+          <item row="2" column="2">
+           <widget class="QLabel" name="label_sampRateUnit">
+            <property name="text">
+             <string>MHz</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -329,6 +330,16 @@
            </property>
           </widget>
          </item>
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="lineEdit_freq">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
          <item row="0" column="0">
           <widget class="QLabel" name="label_amplitude">
            <property name="sizePolicy">
@@ -348,13 +359,6 @@
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="2">
-          <widget class="QLabel" name="label_ampVolts">
-           <property name="text">
-            <string>V</string>
            </property>
           </widget>
          </item>
@@ -380,31 +384,18 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="1">
-          <widget class="QLineEdit" name="lineEdit_freq">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
+         <item row="0" column="2">
+          <widget class="QLabel" name="label_ampUnit">
+           <property name="text">
+            <string>V</string>
            </property>
           </widget>
          </item>
          <item row="1" column="2">
-          <widget class="QComboBox" name="comboBox_freq">
-           <property name="currentText">
-            <string>kHz</string>
+          <widget class="QLabel" name="label_freqUnit">
+           <property name="text">
+            <string>Hz</string>
            </property>
-           <item>
-            <property name="text">
-             <string>kHz</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>MHz</string>
-            </property>
-           </item>
           </widget>
          </item>
         </layout>
