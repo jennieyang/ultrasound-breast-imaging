@@ -3,6 +3,7 @@ import utility
 class InputValidator():
     def __init__(self):
         self.transSeq = None
+        self.waveSelection = None
         self.waveFile = None
         self.waveType = None
         self.amp = None
@@ -61,7 +62,13 @@ class InputValidator():
             if not valid:
                 invalidRows.append(row)
         return invalidRows
-            
+    
+    def getWaveSelection(self):
+        return self.waveSelection
+        
+    def setWaveSelection(self, value):
+        self.waveSelection = value
+        
     def getWaveFile(self):
         return self.waveFile
 		

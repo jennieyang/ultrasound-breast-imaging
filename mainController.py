@@ -21,7 +21,7 @@ class MainController():
             self.beginAcquisition()
         else:
             # open error dialog
-            print("error")
+            print("Error: check highlighted input fields")
             
     def beginAcquisition(self):
         self.dialog.clear()
@@ -35,6 +35,13 @@ class MainController():
         self.dialog.sendMsg("Beginning acquisition...")
         self.dialog.sendMsg("Total sequences: %d" % self.form.tableWidget_transConfig.rowCount())
         
+        if (self.iv.getWaveSelection() == 0):
+            # defined waveform
+            print(self.iv.getWaveType())
+        else:
+            # arbitrary waveform
+            print(self.iv.getWaveFile())
+            
         for r in range(0,self.form.tableWidget_transConfig.rowCount()):
             txList = self.iv.getTransSeq()[r][0]
             rxList = self.iv.getTransSeq()[r][1]

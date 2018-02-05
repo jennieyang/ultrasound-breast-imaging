@@ -12,7 +12,8 @@ class MainView():
         self.setCellHighlight(invalidTrans[0], 0)
         # highlight invalid rx cells
         self.setCellHighlight(invalidTrans[1], 1)
-            
+        
+        iv.setWaveSelection(self.getWaveSelection())
         iv.setWaveFile(self.form.lineEdit_waveFileName.text())
         iv.setWaveType(self.form.comboBox_waveform.currentText())
         iv.setAmp(self.form.lineEdit_amplitude.text())
@@ -36,6 +37,13 @@ class MainView():
             rxList = self.form.tableWidget_transConfig.item(r,1).text()
             transConfig.append([txList, rxList])
         return transConfig
+    
+    def getWaveSelection(self):
+        if self.form.widget_selectWaveform.isEnabled() is True:
+            waveSelection = 0 # Defined wave
+        else: # selectWave enabled
+            waveSelection = 1 # Arbitrary wave
+        return waveSelection
     
     def getFile(self, lineEditWidget, nameFilters):
         dlg = QFileDialog()
