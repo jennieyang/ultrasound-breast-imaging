@@ -4,12 +4,14 @@ import raspi.switch
 import raspi.transmission
 import raspi.acquisition
 import utility
+import inputValidator
 
 class MainController():
-    def setup(self, form, dialog, view):
+    def setup(self, form, dialog, view, inputValidator):
         self.form = form
         self.dialog = dialog
         self.view = view
+        self.iv = inputValidator
     
     '''@TODO: move/change runTest and beginAcquisition, state machine..., combine??
                 beginAcquisition -> get all fields, do checks
@@ -17,25 +19,30 @@ class MainController():
     def beginAcquisition(self):
         self.dialog.clear()
         self.dialog.show()
-        self.dialog.sendMsg("Beginning acquisition...")
-        self.dialog.sendMsg("Total sequences: %d" % self.form.tableWidget_transConfig.rowCount())
+        self.dialog.sendMsg(self.iv.getWaveType())
+        self.dialog.sendMsg(self.iv.getAmp())
+        self.dialog.sendMsg(self.iv.getFreq())
+        self.dialog.sendMsg(self.iv.getNumSamps())
+        self.dialog.sendMsg(self.iv.getSampRate())
+        # self.dialog.sendMsg("Beginning acquisition...")
+        # self.dialog.sendMsg("Total sequences: %d" % self.form.tableWidget_transConfig.rowCount())
         
-        '''@TODO: remove form dependency & convert transducer configs to model data'''
-        for r in range(0,self.form.tableWidget_transConfig.rowCount()):
-            txList = self.form.tableWidget_transConfig.item(r,0).text()
-            rxList = self.form.tableWidget_transConfig.item(r,1).text()
-            transducers = utility.parse(txList,rxList) # parse string entry and order values
+        # '''@TODO: remove form dependency & convert transducer configs to model data'''
+        # for r in range(0,self.form.tableWidget_transConfig.rowCount()):
+            # txList = self.form.tableWidget_transConfig.item(r,0).text()
+            # rxList = self.form.tableWidget_transConfig.item(r,1).text()
+            # transducers = utility.parse(txList,rxList) # parse string entry and order values
             
-            self.dialog.sendMsg("<br>Executing sequence %d" % (r+1), 'red')
-            raspi.switch.configureSwitch(transducers[0], transducers[1], self.dialog)
+            # self.dialog.sendMsg("<br>Executing sequence %d" % (r+1), 'red')
+            # raspi.switch.configureSwitch(transducers[0], transducers[1], self.dialog)
             
             # transmit waveform
-            raspi.transmission.sendWaveform(self.dialog)
+            # raspi.transmission.sendWaveform(self.dialog)
             
         # receive data
-        '''@TODO: get acquisition folder from config file'''
-        raspi.acquisition.receiveData("C:/Users/Jennie/Desktop/Acquisitions", self.dialog)    
-        self.dialog.sendMsg("<br>Acquisition complete", "red")
+        # '''@TODO: get acquisition folder from config file'''
+        # raspi.acquisition.receiveData("C:/Users/Jennie/Desktop/Acquisitions", self.dialog)    
+        # self.dialog.sendMsg("<br>Acquisition complete", "red")
         
     def runTest(self):
         self.dialog.clear()

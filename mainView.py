@@ -2,10 +2,19 @@ import PyQt5
 from PyQt5.QtWidgets import *
 
 class MainView():
-    def __init__(self, form):
+    def __init__(self, form, inputValidator):
         self.form = form
+        self.iv = inputValidator
     
-    def getFile(self,lineEditWidget, nameFilters):
+    def setParams(self):
+        self.iv.setWaveType(self.form.comboBox_waveform.currentText())
+        self.iv.setAmp(self.form.lineEdit_amplitude.text())
+        self.iv.setFreq(self.form.lineEdit_freq.text())
+        self.iv.setNumSamps(self.form.lineEdit_numSamps.text())
+        self.iv.setSampRate(self.form.lineEdit_sampRate.text())
+        self.iv.validate()
+    
+    def getFile(self, lineEditWidget, nameFilters):
         dlg = QFileDialog()
         dlg.setNameFilters(nameFilters)
         if dlg.exec_():

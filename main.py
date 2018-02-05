@@ -7,25 +7,27 @@ import gui.mainwindowUi
 import gui.dialogUi
 import mainView
 import mainController
+import inputValidator
 
 class MainWindow(QMainWindow, gui.mainwindowUi.Ui_MainWindow):
     def __init__(self, controller):
         super().__init__()
         self.setupUi(self) # gets defined in the UI file
         
-        view = mainView.MainView(self)
+        iv = inputValidator.InputValidator(controller)
+        view = mainView.MainView(self, iv)
         view.createTable()
         
         dialog = Dialog()
         
-        controller.setup(self, dialog, view)
+        controller.setup(self, dialog, view, iv)
         
         self.actionQuit.triggered.connect(self.close) # Quit menu item or shortcut triggered
         self.pushButton_waveBrowse.clicked.connect(view.browseWaveFile)
         self.pushButton_transBrowse.clicked.connect(view.browseTransFile)
         self.radioButton_selectWaveform.clicked.connect(view.en_selectWave)
         self.radioButton_loadWaveFile.clicked.connect(view.en_loadWaveFile)
-        self.pushButton_begin.clicked.connect(controller.beginAcquisition)
+        self.pushButton_begin.clicked.connect(view.setParams)
         self.pushButton_runTest.clicked.connect(controller.runTest)
         self.pushButton_addRow.clicked.connect(view.addEmptyRow)
         
