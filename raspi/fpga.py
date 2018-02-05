@@ -11,5 +11,9 @@ class FPGA():
         '''call SPI module here'''
         self.dlg.sendMsg("FPGA configuration complete.", "blue")
     
+    def startCapture(self):
+        self.dlg.sendMsg("Triggering FPGA to begin capture")
+        '''send start capture signal'''
+    
     def receiveData(self, filePath):
         self.dlg.sendMsg("<br>Writing data to %s" % filePath)

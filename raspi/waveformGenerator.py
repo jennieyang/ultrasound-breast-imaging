@@ -12,12 +12,12 @@ class WaveformGenerator():
         self.dlg.sendMsg("<pre>\tFrequency: %s Hz</pre>" % self.freq)
         self.dlg.sendMsg("<pre>\tAmplitude: %s V</pre>" % self.amp)
         
-        '''call SPI module here'''
+        '''call SPI module '''
         
-        self.dlg.sendMsg("Waveform generator configuration complete.")
+        self.dlg.sendMsg("Waveform generator configuration complete.", "blue")
     
     def sendWaveform(self):
-        self.dlg.sendMsg("Transmitting waveform...")
+        self.dlg.sendMsg("Triggering waveform generator to transmit waveform")
         
-        self.dlg.sendMsg("Waveform transmission complete.")
+        '''send trigger signal'''
     
