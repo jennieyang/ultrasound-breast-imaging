@@ -27,27 +27,27 @@ class MainController():
         self.dialog.clear()
         self.dialog.show()
         
-        self.dialog.sendMsg("Executing initialization sequence...", "red")
+        self.dialog.sendMsg("Executing initialization sequence.", "red")
         # initialize waveform generator
         wg = raspi.waveformGenerator.WaveformGenerator(self.dialog, self.iv.getWaveSelection(), self.iv.getWave(), self.iv.getFreq(), self.iv.getAmp())
         wg.configure()
-                
-        self.dialog.sendMsg("Beginning acquisition...")
-        self.dialog.sendMsg("Total sequences: %d" % self.form.tableWidget_transConfig.rowCount())
+        # initialize fpga
+        fpga = raspi.fpga.FPGA(self.dialog, self.iv.getNumSamps(), self.iv.getSampRate())
+        fpga.configure()
             
         for r in range(0,self.form.tableWidget_transConfig.rowCount()):
             txList = self.iv.getTransSeq()[r][0]
             rxList = self.iv.getTransSeq()[r][1]
             
-            self.dialog.sendMsg("<br>Executing sequence %d" % (r+1), 'red')
+            self.dialog.sendMsg("<br>Executing sequence %d" % (r+1), "red")
             raspi.switch.configureSwitch(txList, rxList, self.dialog)
             
             # transmit waveform
             
         # receive data
         '''@TODO: get acquisition folder from config file'''
-        raspi.fpga.receiveData("C:/Users/Jennie/Desktop/Acquisitions", self.dialog)    
-        self.dialog.sendMsg("<br>Acquisition complete", "red")
+        fpga.receiveData("C:/Users/Jennie/Desktop/Acquisitions")
+        self.dialog.sendMsg("<br>Acquisition complete.", "blue")
         
     def runTest(self):
         self.dialog.clear()
