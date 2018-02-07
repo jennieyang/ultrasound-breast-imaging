@@ -441,8 +441,47 @@
        </item>
        <item>
         <widget class="QTableWidget" name="tableWidget_transConfig">
+         <property name="focusPolicy">
+          <enum>Qt::StrongFocus</enum>
+         </property>
+         <property name="contextMenuPolicy">
+          <enum>Qt::NoContextMenu</enum>
+         </property>
+         <property name="acceptDrops">
+          <bool>false</bool>
+         </property>
          <property name="horizontalScrollBarPolicy">
           <enum>Qt::ScrollBarAsNeeded</enum>
+         </property>
+         <property name="showDropIndicator" stdset="0">
+          <bool>false</bool>
+         </property>
+         <property name="dragEnabled">
+          <bool>false</bool>
+         </property>
+         <property name="dragDropOverwriteMode">
+          <bool>false</bool>
+         </property>
+         <property name="dragDropMode">
+          <enum>QAbstractItemView::NoDragDrop</enum>
+         </property>
+         <property name="defaultDropAction">
+          <enum>Qt::IgnoreAction</enum>
+         </property>
+         <property name="alternatingRowColors">
+          <bool>false</bool>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::SingleSelection</enum>
+         </property>
+         <property name="selectionBehavior">
+          <enum>QAbstractItemView::SelectRows</enum>
+         </property>
+         <property name="gridStyle">
+          <enum>Qt::SolidLine</enum>
+         </property>
+         <property name="sortingEnabled">
+          <bool>false</bool>
          </property>
         </widget>
        </item>

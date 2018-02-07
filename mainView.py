@@ -34,8 +34,8 @@ class MainView():
     def getTransConfig(self):
         transConfig = []
         for r in range(0,self.form.tableWidget_transConfig.rowCount()):
-            txList = self.form.tableWidget_transConfig.item(r,0).text()
-            rxList = self.form.tableWidget_transConfig.item(r,1).text()
+            txList = self.form.tableWidget_transConfig.item(self.form.tableWidget_transConfig.verticalHeader().logicalIndex(r),0).text()
+            rxList = self.form.tableWidget_transConfig.item(self.form.tableWidget_transConfig.verticalHeader().logicalIndex(r),1).text()
             transConfig.append([txList, rxList])
         return transConfig
     
@@ -74,6 +74,8 @@ class MainView():
         # set column widths
         self.form.tableWidget_transConfig.horizontalHeader().setStretchLastSection(True)
         #self.form.tableWidget_transConfig.horizontalHeader().setSectionResizeMode(0,QHeaderView.Stretch)
+        
+        self.form.tableWidget_transConfig.verticalHeader().setSectionsMovable(True)
         
         self.form.tableWidget_transConfig.show()
 
