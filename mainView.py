@@ -62,6 +62,9 @@ class MainView():
     def browseTransFile(self):
         self.getFile(self.form.lineEdit_transFileName, ['Text Files (*.txt)', 'All Files (*.*)'])
     
+    def browseMappingFile(self):
+        self.getFile(self.form.lineEdit_mappingFileName, ['INI Files (*.ini)', 'All Files (*.*)'])
+    
     def en_selectWave(self):
         self.form.widget_loadWaveFile.setEnabled(False)
         self.form.widget_selectWaveform.setEnabled(True)
@@ -83,7 +86,13 @@ class MainView():
             transNumItem.setFlags( Qt.ItemIsEnabled ) # make cells uneditable
             self.form.tableWidget_transMapping.setItem(r, 0, transNumItem)
             
-        
+    def setMapping(self, mapping):
+        for transNum in mapping.keys():
+            print(transNum)
+            rowIndex = int(transNum)-1
+            switchId = mapping[transNum]
+            self.form.tableWidget_transMapping.setItem( rowIndex, 1, QTableWidgetItem(switchId) )
+    
     def createTransTable(self):
         self.form.tableWidget_transConfig.setColumnCount(2)
         self.form.tableWidget_transConfig.setHorizontalHeaderLabels(["Tx", "Rx"])
@@ -106,11 +115,19 @@ class MainView():
     def addEmptyRow(self):
         self.addTableItem("","")
         
-    def updateTable(self, filepath):
+    def updateTransTable(self, filepath):
         # read selected config file
         try:
             sequence = utility.getTransducerSeq(filepath)
             for s in sequence:
                 self.addTableItem(s[0], s[1])
+        except:
+            print("There was an error parsing selected transducer file " + filepath)
+        
+    def updateMappingTable(self, filepath):
+        # read selected config file
+        try:
+            mapping = utility.getTransducerMapping(filepath)
+            self.setMapping(mapping)
         except:
             print("There was an error parsing selected transducer file " + filepath)
