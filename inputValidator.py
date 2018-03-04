@@ -7,6 +7,7 @@ class InputValidator():
         self.waveFile = None
         self.waveType = None
         self.freq = None
+        self.numCycles = None
         self.numSamps = None
         self.sampRate = None
         self.valid = True
@@ -85,6 +86,12 @@ class InputValidator():
         
     def setWaveType(self, value):
         self.waveType = value
+    
+    def getNumCycles(self):
+        return self.numCycles
+        
+    def setNumCycles(self, value):
+        self.numCycles = value
         
     def getFreq(self):
         return self.freq

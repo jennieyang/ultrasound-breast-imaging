@@ -21,6 +21,7 @@ class MainView():
         iv.setWaveFile(self.form.lineEdit_waveFileName.text())
         iv.setWaveType(self.form.comboBox_waveform.currentText())
         iv.setFreq(self.form.lineEdit_freq.text())
+        iv.setNumCycles(self.form.lineEdit_numCycles.text())
         iv.setNumSamps(self.form.lineEdit_numSamps.text())
         iv.setSampRate(self.form.lineEdit_sampRate.text())
     
