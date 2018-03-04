@@ -5,7 +5,6 @@ import io
 #Gets the transmitter:receiver sequence from a config txt file
 def getTransducerSeq(filepath):
     sequence = []
-
     with open(filepath) as fp:
         for line in fp:
             line = line.replace('\n','').replace(' ','')
@@ -13,6 +12,11 @@ def getTransducerSeq(filepath):
             sequence.append( (tx,rx) )
             
     return sequence
+
+def saveTransducerSeq(filepath, sequence):
+    with open(filepath, 'w') as fp:
+        for s in sequence:
+            fp.write("%s : %s\n" % (s[0], s[1]))
 
 def loadTransducerMapping(filepath):
     config = configparser.RawConfigParser()
@@ -30,7 +34,7 @@ def saveTransducerMapping(filepath, mapping):
     for m in mapping:
         config['MAPPING'][m[0]] = m[1]
         
-    with open(filepath[0], 'w') as fp:
+    with open(filepath, 'w') as fp:
         config.write(fp)
     
 def parse(txList, rxList):

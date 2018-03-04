@@ -57,12 +57,22 @@ class MainView():
             filePath = dlg.selectedFiles()[0]
             lineEditWidget.setText(filePath)
 
-    def saveFile(self, saveType):
-        dlg = QFileDialog()
-        filepath = QFileDialog.getSaveFileName(dlg, 'Save As', 'C:/Users/Jennie/Desktop/Capstone', 'INI File (*.ini)')
-        if filepath[0] != '':
+    def saveTransFile(self):
+        filepath = self.saveFile('Text File (*.txt)')
+        if filepath != '':
+            sequence = self.getTableItems(self.form.tableWidget_transConfig)
+            utility.saveTransducerSeq(filepath, sequence)
+    
+    def saveMappingFile(self):
+        filepath = self.saveFile('INI File (*.ini)')
+        if filepath != '':
             mapping = self.getTableItems(self.form.tableWidget_transMapping)
             utility.saveTransducerMapping(filepath, mapping)
+    
+    def saveFile(self, saveType):
+        dlg = QFileDialog()
+        filepath = QFileDialog.getSaveFileName(dlg, 'Save As', 'C:/Users/Jennie/Desktop', saveType)
+        return filepath[0]
     
     def browseWaveFile(self):
         self.getFile(self.form.lineEdit_waveFileName, ['Text Files (*.txt)', 'All Files (*.*)'])

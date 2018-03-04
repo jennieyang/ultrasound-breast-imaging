@@ -25,7 +25,8 @@ class MainWindow(QMainWindow, gui.mainwindowUi.Ui_MainWindow):
         self.pushButton_waveBrowse.clicked.connect(view.browseWaveFile)
         self.pushButton_transBrowse.clicked.connect(view.browseTransFile)
         self.pushButton_mappingBrowse.clicked.connect(view.browseMappingFile)
-        self.pushButton_saveMapping.clicked.connect(view.saveFile)
+        self.pushButton_saveTrans.clicked.connect(view.saveTransFile)
+        self.pushButton_saveMapping.clicked.connect(view.saveMappingFile)
         
         self.radioButton_selectWaveform.clicked.connect(view.en_selectWave)
         self.radioButton_loadWaveFile.clicked.connect(view.en_loadWaveFile)
