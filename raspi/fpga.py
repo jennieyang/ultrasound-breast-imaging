@@ -16,6 +16,6 @@ class FPGA():
         '''send start capture signal'''
     
     def receiveData(self, filePath):
-        self.dlg.sendMsg("<br>Writing data to %s" % filePath)
+        self.dlg.sendMsg("Writing data to %s" % filePath, "blue")
         '''call read SPI module'''
         '''write data to file'''
