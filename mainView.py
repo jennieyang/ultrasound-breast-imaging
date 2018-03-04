@@ -57,7 +57,7 @@ class MainView():
         self.getFile(self.form.lineEdit_waveFileName, ['Text Files (*.txt)', 'All Files (*.*)'])
         
     def browseTransFile(self):
-        self.getFile(self.form.lineEdit_transFileName, ['INI Files (*.ini)', 'All Files (*.*)'])
+        self.getFile(self.form.lineEdit_transFileName, ['Text Files (*.txt)', 'All Files (*.*)'])
     
     def en_selectWave(self):
         self.form.widget_loadWaveFile.setEnabled(False)
@@ -93,9 +93,8 @@ class MainView():
         
     def updateTable(self, filepath):
         # read selected config file
-        cfg = utility.ConfigFileParser(filepath)
         try:
-            sequence = cfg.getTransducerSeq("RUN")
+            sequence = utility.getTransducerSeq(filepath)
             for s in sequence:
                 self.addTableItem(s[0], s[1])
         except:
