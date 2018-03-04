@@ -164,8 +164,8 @@ class MainView():
         else:
             self.freqEntered = True
             self.pwEntered = False
+            self.form.lineEdit_pulseWidth.clear()
             if self.numCycEntered == True:
-                self.form.lineEdit_pulseWidth.clear()
                 try:
                     self.form.lineEdit_pulseWidth.setText(utility.freqToPW(freq, numCycles))
                 except Exception:
