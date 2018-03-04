@@ -73,6 +73,8 @@ class MainController():
             fpga.startCapture()
             
         # receive data
+        
+        self.dialog.sendMsg("<br>Finished running %d sequences." % numSequences, "blue")
         '''@TODO: get acquisition folder from config file'''
         fpga.receiveData("C:/Users/Jennie/Desktop/Acquisitions")
         self.dialog.sendMsg("<br>Acquisition complete.", "blue")
