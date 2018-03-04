@@ -60,8 +60,9 @@ class MainView():
     def saveFile(self, saveType):
         dlg = QFileDialog()
         filepath = QFileDialog.getSaveFileName(dlg, 'Save As', 'C:/Users/Jennie/Desktop/Capstone', 'INI File (*.ini)')
-        mapping = self.getTableItems(self.form.tableWidget_transMapping)
-        utility.saveTransducerMapping(filepath, mapping)
+        if filepath[0] != '':
+            mapping = self.getTableItems(self.form.tableWidget_transMapping)
+            utility.saveTransducerMapping(filepath, mapping)
     
     def browseWaveFile(self):
         self.getFile(self.form.lineEdit_waveFileName, ['Text Files (*.txt)', 'All Files (*.*)'])
