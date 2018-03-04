@@ -34,6 +34,10 @@ class MainWindow(QMainWindow, gui.mainwindowUi.Ui_MainWindow):
         self.lineEdit_transFileName.textChanged.connect(lambda: view.updateTransTable(self.lineEdit_transFileName.text()))
         self.lineEdit_mappingFileName.textChanged.connect(lambda: view.updateMappingTable(self.lineEdit_mappingFileName.text()))
         
+        self.lineEdit_freq.textEdited.connect(lambda: view.freqInputHandler(self.lineEdit_freq.text()))
+        self.lineEdit_pulseWidth.textEdited.connect(lambda: view.pwInputHandler(self.lineEdit_pulseWidth.text()))
+        self.lineEdit_numCycles.textEdited.connect(lambda: view.numCycInputHandler(self.lineEdit_numCycles.text()))
+        
         self.pushButton_begin.clicked.connect(controller.validateAcqInput)
         self.pushButton_runTest.clicked.connect(controller.validateTestInput)
         

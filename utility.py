@@ -36,7 +36,7 @@ def saveTransducerMapping(filepath, mapping):
         
     with open(filepath, 'w') as fp:
         config.write(fp)
-    
+
 def parse(txList, rxList):
     txVals = 0
     rxVals = 0

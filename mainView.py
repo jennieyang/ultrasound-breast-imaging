@@ -9,6 +9,9 @@ class MainView():
         self.form = form
         self.createTransTable()
         self.createMappingTable()
+        self.freqEntered = False
+        self.pwEntered = False
+        self.numCycEntered = False
     
     def setParams(self, iv):
         invalidTrans = iv.setTransSeq(self.getTableItems(self.form.tableWidget_transConfig))
@@ -149,3 +152,52 @@ class MainView():
             self.setMapping(mapping)
         except:
             print("There was an error parsing selected mapping file " + filepath)
+
+    '''@TODO: re-factor code below'''
+    def freqInputHandler(self, value):
+        if value == '':
+            self.freqEntered = False
+            if self.numCycEntered == True:
+                self.form.lineEdit_pulseWidth.clear()
+        else:
+            self.freqEntered = True
+            self.pwEntered = False
+            if self.numCycEntered == True:
+                try:
+                    self.form.lineEdit_pulseWidth.setText('{:.2f}'.format(1/float(value)))
+                except Exception:
+                    pass
+    
+    def pwInputHandler(self, value):
+        if value == '':
+            self.pwEntered = False
+            if self.numCycEntered == True:
+                self.form.lineEdit_freq.clear()
+        else:
+            self.pwEntered = True
+            self.freqEntered = False
+            if self.numCycEntered == True:
+                try:
+                    self.form.lineEdit_freq.setText('{:.2f}'.format(1/float(value)))
+                except Exception:
+                    pass
+    
+    def numCycInputHandler(self, value):
+        if value == '':
+            self.numCycEntered = False
+            if self.freqEntered:
+                self.form.lineEdit_pulseWidth.clear()
+            if self.pwEntered:
+                self.form.lineEdit_freq.clear()
+        else:
+            self.numCycEntered = True
+            if self.freqEntered:
+                try:
+                    self.form.lineEdit_pulseWidth.setText('{:.2f}'.format(1/float(value)))
+                except Exception:
+                    pass
+            if self.pwEntered:
+                try:
+                    self.form.lineEdit_freq.setText('{:.2f}'.format(1/float(value)))
+                except Exception:
+                    pass

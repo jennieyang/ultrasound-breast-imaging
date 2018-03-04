@@ -165,16 +165,6 @@
           </sizepolicy>
          </property>
          <layout class="QGridLayout" name="gridLayout_3">
-          <item row="4" column="0">
-           <widget class="QLabel" name="label_numCycles">
-            <property name="text">
-             <string>Number of Cycles:</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-            </property>
-           </widget>
-          </item>
           <item row="0" column="1">
            <widget class="QComboBox" name="comboBox_waveform">
             <property name="sizePolicy">
@@ -188,42 +178,25 @@
               <string>Sinusoid</string>
              </property>
             </item>
-            <item>
-             <property name="text">
-              <string>Square</string>
-             </property>
-            </item>
            </widget>
           </item>
-          <item row="2" column="1">
+          <item row="5" column="0">
+           <widget class="QLabel" name="label_pulseWidth">
+            <property name="text">
+             <string>Pulse Width (µs):</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
            <widget class="QLineEdit" name="lineEdit_freq">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_freq">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>Frequency (Hz):</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
             </property>
            </widget>
           </item>
@@ -249,21 +222,30 @@
             </property>
            </widget>
           </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="label_period">
+          <item row="4" column="0">
+           <widget class="QLabel" name="label_freq">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="text">
-             <string>Period (µs):</string>
+             <string>Frequency (Hz):</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
             </property>
            </widget>
           </item>
-          <item row="3" column="1">
-           <widget class="QLineEdit" name="lineEdit_period"/>
-          </item>
-          <item row="4" column="1">
-           <widget class="QLineEdit" name="lineEdit_numCycles"/>
+          <item row="5" column="1">
+           <widget class="QLineEdit" name="lineEdit_pulseWidth"/>
           </item>
           <item row="0" column="2">
            <spacer name="horizontalSpacer_4">
@@ -277,6 +259,19 @@
              </size>
             </property>
            </spacer>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="lineEdit_numCycles"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_numCycles">
+            <property name="text">
+             <string>Number of Cycles:</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
