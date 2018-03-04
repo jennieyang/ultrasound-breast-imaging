@@ -130,4 +130,4 @@ class MainView():
             mapping = utility.getTransducerMapping(filepath)
             self.setMapping(mapping)
         except:
-            print("There was an error parsing selected transducer file " + filepath)
+            print("There was an error parsing selected mapping file " + filepath)
