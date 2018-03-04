@@ -336,6 +336,13 @@
        <item>
         <widget class="QWidget" name="widget_acqOptions" native="true">
          <layout class="QGridLayout" name="gridLayout_6">
+          <item row="2" column="2">
+           <widget class="QLabel" name="label_sampRateUnit">
+            <property name="text">
+             <string>MHz</string>
+            </property>
+           </widget>
+          </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_numSamps">
             <property name="sizePolicy">
@@ -393,18 +400,42 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="2">
-           <widget class="QLabel" name="label_sampRateUnit">
-            <property name="text">
-             <string>MHz</string>
-            </property>
-           </widget>
-          </item>
          </layout>
         </widget>
        </item>
       </layout>
      </widget>
+    </item>
+    <item row="2" column="0" colspan="2">
+     <layout class="QHBoxLayout" name="horizontalLayout_begin">
+      <item>
+       <widget class="QPushButton" name="pushButton_runTest">
+        <property name="text">
+         <string>Run Test</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_begin">
+        <property name="text">
+         <string>Begin</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
     <item row="0" column="0" rowspan="2">
      <widget class="QTabWidget" name="tabWidget">
@@ -422,54 +453,7 @@
         <string>Transducer Mapping</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_9">
-        <item row="0" column="0" colspan="2">
-         <widget class="QWidget" name="widget_loadTransFile_2" native="true">
-          <layout class="QGridLayout" name="gridLayout_5">
-           <item row="0" column="1">
-            <widget class="QLabel" name="label_mappingFilePath">
-             <property name="text">
-              <string>File Path:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="2">
-            <widget class="QPushButton" name="pushButton_mappingBrowse">
-             <property name="text">
-              <string>Browse...</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QLineEdit" name="lineEdit_mappingFileName">
-             <property name="readOnly">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <spacer name="horizontalSpacer_6">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="2" column="1">
-         <widget class="QPushButton" name="pushButton_saveMapping">
-          <property name="text">
-           <string>Save As...</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0" colspan="2">
+        <item row="1" column="0" colspan="3">
          <widget class="QTableWidget" name="tableWidget_transMapping">
           <property name="focusPolicy">
            <enum>Qt::StrongFocus</enum>
@@ -601,6 +585,53 @@
           <column/>
          </widget>
         </item>
+        <item row="0" column="0" colspan="3">
+         <widget class="QWidget" name="widget_loadTransFile_2" native="true">
+          <layout class="QGridLayout" name="gridLayout_5">
+           <item row="0" column="1">
+            <widget class="QLabel" name="label_mappingFilePath">
+             <property name="text">
+              <string>File Path:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="QPushButton" name="pushButton_mappingBrowse">
+             <property name="text">
+              <string>Browse...</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="lineEdit_mappingFileName">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <spacer name="horizontalSpacer_6">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="2" column="2">
+         <widget class="QPushButton" name="pushButton_saveMapping">
+          <property name="text">
+           <string>Save</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
       <widget class="QWidget" name="tab_switch">
@@ -617,14 +648,7 @@
         <string>Switch Configuration</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_8">
-        <item row="2" column="1">
-         <widget class="QPushButton" name="pushButton_addRow">
-          <property name="text">
-           <string>Add Row</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
+        <item row="2" column="3">
          <spacer name="horizontalSpacer_3">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -637,7 +661,34 @@
           </property>
          </spacer>
         </item>
-        <item row="1" column="0" colspan="2">
+        <item row="0" column="0" colspan="5">
+         <widget class="QWidget" name="widget_loadTransFile" native="true">
+          <layout class="QGridLayout" name="gridLayout_4">
+           <item row="0" column="1">
+            <widget class="QLabel" name="label_transFilePath">
+             <property name="text">
+              <string>File Path:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="QPushButton" name="pushButton_transBrowse">
+             <property name="text">
+              <string>Browse...</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="lineEdit_transFileName">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="5">
          <widget class="QTableWidget" name="tableWidget_transConfig">
           <property name="focusPolicy">
            <enum>Qt::StrongFocus</enum>
@@ -689,67 +740,23 @@
           </attribute>
          </widget>
         </item>
-        <item row="0" column="0" colspan="2">
-         <widget class="QWidget" name="widget_loadTransFile" native="true">
-          <layout class="QGridLayout" name="gridLayout_4">
-           <item row="0" column="1">
-            <widget class="QLabel" name="label_transFilePath">
-             <property name="text">
-              <string>File Path:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="2">
-            <widget class="QPushButton" name="pushButton_transBrowse">
-             <property name="text">
-              <string>Browse...</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QLineEdit" name="lineEdit_transFileName">
-             <property name="readOnly">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-          </layout>
+        <item row="2" column="4">
+         <widget class="QPushButton" name="pushButton_saveTransConfig">
+          <property name="text">
+           <string>Save</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0" colspan="2">
+         <widget class="QPushButton" name="pushButton_addRow">
+          <property name="text">
+           <string>Add Row</string>
+          </property>
          </widget>
         </item>
        </layout>
       </widget>
      </widget>
-    </item>
-    <item row="2" column="0" colspan="2">
-     <layout class="QHBoxLayout" name="horizontalLayout_begin">
-      <item>
-       <widget class="QPushButton" name="pushButton_runTest">
-        <property name="text">
-         <string>Run Test</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pushButton_begin">
-        <property name="text">
-         <string>Begin</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
     </item>
    </layout>
   </widget>
