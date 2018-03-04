@@ -465,7 +465,7 @@
         <item row="2" column="1">
          <widget class="QPushButton" name="pushButton_2">
           <property name="text">
-           <string>PushButton</string>
+           <string>Save As...</string>
           </property>
          </widget>
         </item>
@@ -505,13 +505,13 @@
            <enum>QAbstractItemView::ExtendedSelection</enum>
           </property>
           <property name="selectionBehavior">
-           <enum>QAbstractItemView::SelectRows</enum>
+           <enum>QAbstractItemView::SelectItems</enum>
           </property>
           <property name="gridStyle">
            <enum>Qt::SolidLine</enum>
           </property>
           <property name="sortingEnabled">
-           <bool>true</bool>
+           <bool>false</bool>
           </property>
           <property name="rowCount">
            <number>60</number>
@@ -520,7 +520,7 @@
            <number>2</number>
           </property>
           <attribute name="horizontalHeaderVisible">
-           <bool>false</bool>
+           <bool>true</bool>
           </attribute>
           <attribute name="horizontalHeaderHighlightSections">
            <bool>false</bool>

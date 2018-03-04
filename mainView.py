@@ -1,11 +1,14 @@
 import PyQt5
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
+from PyQt5.QtCore import *
 import utility
 
 class MainView():
     def __init__(self, form):
         self.form = form
+        self.createTransTable()
+        self.createMappingTable()
     
     def setParams(self, iv):
         invalidTrans = iv.setTransSeq(self.getTransConfig())
@@ -67,7 +70,21 @@ class MainView():
         self.form.widget_loadWaveFile.setEnabled(True)
         self.form.widget_selectWaveform.setEnabled(False)
 
-    def createTable(self):
+    def createMappingTable(self):
+        self.form.tableWidget_transMapping.setHorizontalHeaderLabels(["Transducer Number", "Switch ID"])
+        
+        # set column widths
+        self.form.tableWidget_transMapping.horizontalHeader().setStretchLastSection(True)
+        self.form.tableWidget_transMapping.horizontalHeader().setSectionResizeMode(0,QHeaderView.Stretch)
+        
+        rows = self.form.tableWidget_transMapping.rowCount()
+        for r in range(rows):
+            transNumItem = QTableWidgetItem('%s' % (r+1))
+            transNumItem.setFlags( Qt.ItemIsEnabled ) # make cells uneditable
+            self.form.tableWidget_transMapping.setItem(r, 0, transNumItem)
+            
+        
+    def createTransTable(self):
         self.form.tableWidget_transConfig.setColumnCount(2)
         self.form.tableWidget_transConfig.setHorizontalHeaderLabels(["Tx", "Rx"])
         
@@ -76,8 +93,6 @@ class MainView():
         #self.form.tableWidget_transConfig.horizontalHeader().setSectionResizeMode(0,QHeaderView.Stretch)
         
         self.form.tableWidget_transConfig.verticalHeader().setSectionsMovable(True)
-        
-        self.form.tableWidget_transConfig.show()
 
     def addTableItem(self, txList, rxList):
         # insert row at last position

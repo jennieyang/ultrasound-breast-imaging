@@ -14,7 +14,6 @@ class MainWindow(QMainWindow, gui.mainwindowUi.Ui_MainWindow):
         self.setupUi(self) # gets defined in the UI file
         
         view = mainView.MainView(self)
-        view.createTable()
         
         dialog = Dialog()
         
