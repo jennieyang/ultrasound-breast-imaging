@@ -11,7 +11,7 @@ class MainView():
         self.createMappingTable()
     
     def setParams(self, iv):
-        invalidTrans = iv.setTransSeq(self.getTransConfig())
+        invalidTrans = iv.setTransSeq(self.getTableItems(self.form.tableWidget_transConfig))
         # highlight invalid tx cells
         self.setCellHighlight(invalidTrans[0], 0)
         # highlight invalid rx cells
@@ -34,13 +34,14 @@ class MainView():
                 # reset highlight
                 self.form.tableWidget_transConfig.item(row, col).setBackground(QColor(255,255,255))
     
-    def getTransConfig(self):
-        transConfig = []
-        for r in range(0,self.form.tableWidget_transConfig.rowCount()):
-            txList = self.form.tableWidget_transConfig.item(self.form.tableWidget_transConfig.verticalHeader().logicalIndex(r),0).text()
-            rxList = self.form.tableWidget_transConfig.item(self.form.tableWidget_transConfig.verticalHeader().logicalIndex(r),1).text()
-            transConfig.append([txList, rxList])
-        return transConfig
+    def getTableItems(self, table):
+        items = []
+        for r in range(0,table.rowCount()):
+            col0 = table.item(table.verticalHeader().logicalIndex(r),0).text()
+            col1 = table.item(table.verticalHeader().logicalIndex(r),1).text()
+            if col0 != '' and col1 != '': # don't add incomplete entries
+                items.append([col0, col1])
+        return items
     
     def getWaveSelection(self):
         if self.form.widget_selectWaveform.isEnabled() is True:
@@ -56,6 +57,12 @@ class MainView():
             filePath = dlg.selectedFiles()[0]
             lineEditWidget.setText(filePath)
 
+    def saveFile(self, saveType):
+        dlg = QFileDialog()
+        filepath = QFileDialog.getSaveFileName(dlg, 'Save As', 'C:/Users/Jennie/Desktop/Capstone', 'INI File (*.ini)')
+        mapping = self.getTableItems(self.form.tableWidget_transMapping)
+        utility.saveTransducerMapping(filepath, mapping)
+    
     def browseWaveFile(self):
         self.getFile(self.form.lineEdit_waveFileName, ['Text Files (*.txt)', 'All Files (*.*)'])
         
@@ -85,10 +92,10 @@ class MainView():
             transNumItem = QTableWidgetItem('%s' % (r+1))
             transNumItem.setFlags( Qt.ItemIsEnabled ) # make cells uneditable
             self.form.tableWidget_transMapping.setItem(r, 0, transNumItem)
+            self.form.tableWidget_transMapping.setItem(r, 1, QTableWidgetItem(''))
             
     def setMapping(self, mapping):
         for transNum in mapping.keys():
-            print(transNum)
             rowIndex = int(transNum)-1
             switchId = mapping[transNum]
             self.form.tableWidget_transMapping.setItem( rowIndex, 1, QTableWidgetItem(switchId) )
@@ -127,7 +134,7 @@ class MainView():
     def updateMappingTable(self, filepath):
         # read selected config file
         try:
-            mapping = utility.getTransducerMapping(filepath)
+            mapping = utility.loadTransducerMapping(filepath)
             self.setMapping(mapping)
         except:
             print("There was an error parsing selected mapping file " + filepath)

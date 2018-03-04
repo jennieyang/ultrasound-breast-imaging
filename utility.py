@@ -14,7 +14,7 @@ def getTransducerSeq(filepath):
             
     return sequence
 
-def getTransducerMapping(filepath):
+def loadTransducerMapping(filepath):
     config = configparser.RawConfigParser()
     config.read(filepath)
     mapping = {}
@@ -24,6 +24,15 @@ def getTransducerMapping(filepath):
             mapping[transNum] = switchId
     return mapping
 
+def saveTransducerMapping(filepath, mapping):
+    config = configparser.RawConfigParser()
+    config.add_section('MAPPING')
+    for m in mapping:
+        config['MAPPING'][m[0]] = m[1]
+        
+    with open(filepath[0], 'w') as fp:
+        config.write(fp)
+    
 def parse(txList, rxList):
     txVals = 0
     rxVals = 0

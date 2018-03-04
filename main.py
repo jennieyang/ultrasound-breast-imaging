@@ -20,9 +20,13 @@ class MainWindow(QMainWindow, gui.mainwindowUi.Ui_MainWindow):
         controller.setup(dialog, view)
         
         self.actionQuit.triggered.connect(self.close) # Quit menu item or shortcut triggered
+        
+        # file operations
         self.pushButton_waveBrowse.clicked.connect(view.browseWaveFile)
         self.pushButton_transBrowse.clicked.connect(view.browseTransFile)
         self.pushButton_mappingBrowse.clicked.connect(view.browseMappingFile)
+        self.pushButton_saveMapping.clicked.connect(view.saveFile)
+        
         self.radioButton_selectWaveform.clicked.connect(view.en_selectWave)
         self.radioButton_loadWaveFile.clicked.connect(view.en_loadWaveFile)
         self.pushButton_addRow.clicked.connect(view.addEmptyRow)
