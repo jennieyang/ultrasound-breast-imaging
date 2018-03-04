@@ -20,7 +20,6 @@ class MainView():
         iv.setWaveSelection(self.getWaveSelection())
         iv.setWaveFile(self.form.lineEdit_waveFileName.text())
         iv.setWaveType(self.form.comboBox_waveform.currentText())
-        iv.setAmp(self.form.lineEdit_amplitude.text())
         iv.setFreq(self.form.lineEdit_freq.text())
         iv.setNumSamps(self.form.lineEdit_numSamps.text())
         iv.setSampRate(self.form.lineEdit_sampRate.text())

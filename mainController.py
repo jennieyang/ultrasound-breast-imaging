@@ -34,7 +34,6 @@ class MainController():
         iv.setTransSeq(cfg.getTransducerSeq("TEST"))
         iv.setWaveSelection(0)
         iv.setWaveType("Sinusoid")
-        iv.setAmp(5)
         iv.setFreq(1000000)
         iv.setNumSamps(100)
         iv.setSampRate(50)
@@ -50,7 +49,7 @@ class MainController():
     def beginAcquisition(self):
         self.dialog.sendMsg("Executing initialization sequence", "red")
         # initialize waveform generator
-        wg = raspi.waveformGenerator.WaveformGenerator(self.dialog, self.iv.getWaveSelection(), self.iv.getWave(), self.iv.getFreq(), self.iv.getAmp())
+        wg = raspi.waveformGenerator.WaveformGenerator(self.dialog, self.iv.getWaveSelection(), self.iv.getWave(), self.iv.getFreq())
         wg.configure()
         # initialize fpga
         fpga = raspi.fpga.FPGA(self.dialog, self.iv.getNumSamps(), self.iv.getSampRate())

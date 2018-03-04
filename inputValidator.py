@@ -6,7 +6,6 @@ class InputValidator():
         self.waveSelection = None
         self.waveFile = None
         self.waveType = None
-        self.amp = None
         self.freq = None
         self.numSamps = None
         self.sampRate = None
@@ -86,12 +85,6 @@ class InputValidator():
         
     def setWaveType(self, value):
         self.waveType = value
-    
-    def getAmp(self):
-        return self.amp
-        
-    def setAmp(self, value):
-        self.amp = value
         
     def getFreq(self):
         return self.freq
