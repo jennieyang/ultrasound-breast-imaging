@@ -154,8 +154,10 @@ class MainView():
             print("There was an error parsing selected mapping file " + filepath)
 
     '''@TODO: re-factor code below'''
-    def freqInputHandler(self, value):
-        if value == '':
+    def freqInputHandler(self):
+        freq = self.form.lineEdit_freq.text()
+        numCycles = self.form.lineEdit_numCycles.text()
+        if freq == '':
             self.freqEntered = False
             if self.numCycEntered == True:
                 self.form.lineEdit_pulseWidth.clear()
@@ -163,27 +165,34 @@ class MainView():
             self.freqEntered = True
             self.pwEntered = False
             if self.numCycEntered == True:
+                self.form.lineEdit_pulseWidth.clear()
                 try:
-                    self.form.lineEdit_pulseWidth.setText('{:.2f}'.format(1/float(value)))
+                    self.form.lineEdit_pulseWidth.setText(utility.freqToPW(freq, numCycles))
                 except Exception:
                     pass
     
-    def pwInputHandler(self, value):
-        if value == '':
+    def pwInputHandler(self):
+        pw = self.form.lineEdit_pulseWidth.text()
+        numCycles = self.form.lineEdit_numCycles.text()
+        if pw == '':
             self.pwEntered = False
             if self.numCycEntered == True:
                 self.form.lineEdit_freq.clear()
         else:
             self.pwEntered = True
             self.freqEntered = False
+            self.form.lineEdit_freq.clear()
             if self.numCycEntered == True:
                 try:
-                    self.form.lineEdit_freq.setText('{:.2f}'.format(1/float(value)))
+                    self.form.lineEdit_freq.setText(utility.PWToFreq(pw, numCycles))
                 except Exception:
                     pass
     
-    def numCycInputHandler(self, value):
-        if value == '':
+    def numCycInputHandler(self):
+        freq = self.form.lineEdit_freq.text()
+        pw = self.form.lineEdit_pulseWidth.text()
+        numCycles = self.form.lineEdit_numCycles.text()
+        if numCycles == '':
             self.numCycEntered = False
             if self.freqEntered:
                 self.form.lineEdit_pulseWidth.clear()
@@ -193,11 +202,11 @@ class MainView():
             self.numCycEntered = True
             if self.freqEntered:
                 try:
-                    self.form.lineEdit_pulseWidth.setText('{:.2f}'.format(1/float(value)))
+                    self.form.lineEdit_pulseWidth.setText(utility.freqToPW(freq, numCycles))
                 except Exception:
                     pass
             if self.pwEntered:
                 try:
-                    self.form.lineEdit_freq.setText('{:.2f}'.format(1/float(value)))
+                    self.form.lineEdit_freq.setText(utility.PWToFreq(pw, numCycles))
                 except Exception:
                     pass

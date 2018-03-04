@@ -37,6 +37,14 @@ def saveTransducerMapping(filepath, mapping):
     with open(filepath, 'w') as fp:
         config.write(fp)
 
+def freqToPW(freq, numCycles):
+    pw = 1 / float(freq) * int(numCycles)
+    return '{:.2f}'.format(pw)
+
+def PWToFreq(pw, numCycles):
+    freq = 1 / ( float(pw) / int(numCycles) )
+    return '{:0f}'.format(freq)
+
 def parse(txList, rxList):
     txVals = 0
     rxVals = 0
