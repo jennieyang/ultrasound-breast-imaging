@@ -183,7 +183,7 @@
           <item row="5" column="0">
            <widget class="QLabel" name="label_pulseWidth">
             <property name="text">
-             <string>Pulse Width (µs):</string>
+             <string>Pulse Width (ns):</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -460,7 +460,7 @@
            <number>2</number>
           </property>
           <attribute name="horizontalHeaderVisible">
-           <bool>false</bool>
+           <bool>true</bool>
           </attribute>
           <attribute name="horizontalHeaderHighlightSections">
            <bool>false</bool>
@@ -595,7 +595,7 @@
         <bool>true</bool>
        </property>
        <attribute name="title">
-        <string>Switch Configuration</string>
+        <string>Transducer Configuration</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_8">
         <item row="2" column="3">
