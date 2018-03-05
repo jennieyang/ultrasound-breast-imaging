@@ -105,31 +105,32 @@ class InputValidator():
                 error = "Invalid Tx: Only one transmitting transducer allowed"
                 seq['txErrors'].append(error)
                 print(error)
-        print(self.switchSeq)
         
     def validateRx(self):
         NUM_BOARDS = 4
-        invalidRows = []
-        for row in range(0, len(self.transSeq)):
-            txNum = self.transSeq[row][0][0]
-            rxList = self.transSeq[row][1]
-            valid = True
-            flag = [0] * NUM_BOARDS
-            # only one transducer can be transmitting per board
-            # can't contain same transducer as Tx
-            # must be between 1 and 60 (inclusive)
-            for rxNum in rxList:
-                boardNum = rxNum % NUM_BOARDS
-                if (flag[boardNum] != 0) or (rxNum == txNum) or (rxNum < 1) or (rxNum > 60): 
-                    valid = False
-                    self.valid = False
+        for seq in self.switchSeq:
+            txList = seq['tx']
+            rxList = seq['rx']
+            
+            # 0 - letter not in rxList
+            flag = {'A':0, 'B':0, 'C':0, 'D':0}
+            for r in rxList:
+                boardLetter = r[0]
+                # only one transducer can be receiving per board
+                if flag[boardLetter] != 0:
+                    # board already has transducer set to rx
+                    error = "Invalid Rx: Only one receiving transducer allowed per board"
+                    seq['rxErrors'].append(error)
                 else:
-                # valid & no transducers selected from boardNum yet
-                    flag[boardNum] = 1
-            if not valid:
-                invalidRows.append(row)
-        return invalidRows
-    
+                    # set flag for board
+                    flag[boardLetter] = 1
+            
+                # rx can't contain same transducer as tx
+                if r in txList:
+                    error = "Invalid Tx/Rx: Transducer cannot be set to transmit and receive"
+                    seq['txErrors'].append(error)
+                    seq['rxErrors'].append(error)
+        
     def getWave(self):
         if (self.waveSelection == 0):
             # defined waveform
