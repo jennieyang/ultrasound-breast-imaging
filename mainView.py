@@ -14,6 +14,8 @@ class MainView():
         self.numCycEntered = False
     
     def setParams(self, iv):
+        iv.setMapping(self.getTableItems(self.form.tableWidget_transMapping))
+    
         invalidTrans = iv.setTransSeq(self.getTableItems(self.form.tableWidget_transConfig))
         # highlight invalid tx cells
         self.setCellHighlight(invalidTrans[0], 0)
@@ -25,6 +27,7 @@ class MainView():
         iv.setWaveType(self.form.comboBox_waveform.currentText())
         iv.setFreq(self.form.lineEdit_freq.text())
         iv.setNumCycles(self.form.lineEdit_numCycles.text())
+        iv.setPulseWidth(self.form.lineEdit_pulseWidth.text())
         iv.setNumSamps(self.form.lineEdit_numSamps.text())
         iv.setSampRate(self.form.lineEdit_sampRate.text())
     

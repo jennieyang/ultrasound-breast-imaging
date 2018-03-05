@@ -2,11 +2,13 @@ import utility
 
 class InputValidator():
     def __init__(self):
+        self.mapping = None
         self.transSeq = None
         self.waveSelection = None
         self.waveFile = None
         self.waveType = None
         self.freq = None
+        self.pulseWidth = None
         self.numCycles = None
         self.numSamps = None
         self.sampRate = None
@@ -15,6 +17,43 @@ class InputValidator():
     def isValid(self):
         return self.valid
     
+    def getMapping(self):
+        return mapping
+    
+    def setMapping(self, value):
+        mapping = {}
+        for r in range(0, len(value)):
+            transNum = value[r][0]
+            switchId = value[r][1]
+            mapping[transNum] = switchId
+        self.mapping = mapping
+        self.validateMapping()
+        
+    def validateMapping(self):
+        reverse = {}
+        duplicates = {}
+        for transNum in self.mapping:
+            switchId = self.mapping[transNum]
+            # check for invalid switch id: board letter must be A,B,C,D and switch number 1-15
+            try:
+                boardLetter = switchId[0].upper()
+                switchNum = int(switchId[1:])
+                if ord(boardLetter) < ord('A') or ord(boardLetter) > ord('D') or switchNum < 1 or switchNum > 15:
+                    print('invalid switch id')
+            except Exception:
+                print ('invalid switch id)
+                
+            # check for invalid mapping: more than one transducer number maps to same switch id
+            if switchId in reverse:
+                if switchId in duplicates:
+                    duplicates[switchId].append(transNum)
+                else:
+                    # create new dictionary entry containing list of transducer numbers with same switch id for the invalid switch id
+                    duplicates[switchId] = [ reverse[switchId], transNum ]
+            else:
+                reverse[switchId] = transNum
+        print(duplicates)
+        
     def getTransSeq(self):
         return self.transSeq
         
@@ -98,6 +137,12 @@ class InputValidator():
         
     def setFreq(self, value):
         self.freq = value
+        
+    def getPulseWidth(self):
+        return self.pulseWidth
+        
+    def setPulseWidth(self, value):
+        self.pulseWidth = value
         
     def getNumSamps(self):
         return self.numSamps

@@ -49,7 +49,7 @@ class MainController():
     def beginAcquisition(self):
         self.dialog.sendMsg("Executing initialization sequence", "red")
         # initialize waveform generator
-        wg = raspi.waveformGenerator.WaveformGenerator(self.dialog, self.iv.getWaveSelection(), self.iv.getWave(), self.iv.getFreq(), self.iv.getNumCycles())
+        wg = raspi.waveformGenerator.WaveformGenerator(self.dialog, self.iv.getWaveSelection(), self.iv.getWave(), self.iv.getNumCycles(), self.iv.getFreq(), self.iv.pulseWidth)
         wg.configure()
         # initialize fpga
         fpga = raspi.fpga.FPGA(self.dialog, self.iv.getNumSamps(), self.iv.getSampRate())
