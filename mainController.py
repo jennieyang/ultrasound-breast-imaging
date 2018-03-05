@@ -10,6 +10,7 @@ class MainController():
     def setup(self, dialog, view):
         self.dialog = dialog
         self.view = view
+        self.errorDialog = None
         self.iv = None
         
     def validateAcqInput(self):
@@ -24,6 +25,8 @@ class MainController():
             self.beginAcquisition()
         else:
             # open error dialog
+            self.errorDialog = QMessageBox.critical(None,'Error',"Invalid input: check highlighted fields", QMessageBox.Ok)
+            
             print("Error: check highlighted input fields")
         
     def validateTestInput(self):
