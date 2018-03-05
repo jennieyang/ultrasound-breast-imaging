@@ -15,13 +15,12 @@ class MainView():
     
     def setParams(self, iv):
         iv.setMapping(self.getTableItems(self.form.tableWidget_transMapping))
-    
-        #invalidTrans = 
         iv.setTransSeq(self.getTableItems(self.form.tableWidget_transConfig))
-        # highlight invalid tx cells
-        #self.setCellHighlight(invalidTrans[0], 0)
-        # highlight invalid rx cells
-        #self.setCellHighlight(invalidTrans[1], 1)
+        invalidTrans = iv.checkErrors()
+        # invalid tx input
+        self.setCellHighlight(invalidTrans[0], 0)
+        # invalid rx input
+        self.setCellHighlight(invalidTrans[1], 1)
         
         iv.setWaveSelection(self.getWaveSelection())
         iv.setWaveFile(self.form.lineEdit_waveFileName.text())
@@ -33,10 +32,14 @@ class MainView():
         iv.setSampRate(self.form.lineEdit_sampRate.text())
     
     def setCellHighlight(self, list, col):
+        indexes = [item[0] for item in list]
+        errors = [item[1] for item in list]
+        i = 0
         for row in range(0, self.form.tableWidget_transConfig.rowCount()):
-            if row in list:
-                # highlight cells at (row, col) contained in lists
+            if row in indexes:
                 self.form.tableWidget_transConfig.item(row, col).setBackground(QColor(255,100,100))
+                self.form.tableWidget_transConfig.item(row, col).setToolTip("\n".join(errors[i]))
+                i = i + 1
             else:
                 # reset highlight
                 self.form.tableWidget_transConfig.item(row, col).setBackground(QColor(255,255,255))

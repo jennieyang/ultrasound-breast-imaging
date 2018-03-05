@@ -4,6 +4,7 @@ class InputValidator():
     def __init__(self):
         self.mapping = None
         self.switchSeq = None
+        self.transSeq = None
         self.waveSelection = None
         self.waveFile = None
         self.waveType = None
@@ -17,6 +18,19 @@ class InputValidator():
     def isValid(self):
         return self.valid
     
+    def checkErrors(self):
+        invalidTx = []
+        invalidRx = []
+        for s in range(0, len(self.switchSeq)):
+            seq = self.switchSeq[s]
+            if len(seq['txErrors']) != 0:
+                invalidTx.append((s, seq['txErrors']))
+                self.valid = False
+            if len(seq['rxErrors']) != 0:
+                invalidRx.append((s, seq['rxErrors']))
+                self.valid = False
+        return (invalidTx, invalidRx)
+        
     def getMapping(self):
         return mapping
     
@@ -61,10 +75,12 @@ class InputValidator():
         
     def setTransSeq(self, value):
         switchSeq = []
+        self.transSeq = []
         for n in range(0, len(value)):
             txList = [x.strip() for x in value[n][0].split(',')]
             rxList = [x.strip() for x in value[n][1].split(',')]
-        
+            self.transSeq.append((list(txList), list(rxList))) # copy list into transSeq
+            
             seq = {}
             seq['txErrors'] = []
             seq['rxErrors'] = []
@@ -94,6 +110,9 @@ class InputValidator():
         self.validateTx()
         self.validateRx()
     
+    def getTransSeq(self):
+        return self.transSeq
+    
     def getNumSeq(self):
         return len(self.transSeq)
     
@@ -116,14 +135,16 @@ class InputValidator():
             flag = {'A':0, 'B':0, 'C':0, 'D':0}
             for r in rxList:
                 boardLetter = r[0]
-                # only one transducer can be receiving per board
-                if flag[boardLetter] != 0:
-                    # board already has transducer set to rx
-                    error = "Invalid Rx: Only one receiving transducer allowed per board"
-                    seq['rxErrors'].append(error)
-                else:
-                    # set flag for board
-                    flag[boardLetter] = 1
+                if boardLetter.isalpha():
+                    # only one transducer can be receiving per board
+                    if flag[boardLetter] != 0:
+                        # board already has transducer set to rx
+                        error = "Invalid Rx: Only one receiving transducer allowed per board"
+                        if error not in seq['rxErrors']:
+                            seq['rxErrors'].append(error)
+                    else:
+                        # set flag for board
+                        flag[boardLetter] = 1
             
                 # rx can't contain same transducer as tx
                 if r in txList:

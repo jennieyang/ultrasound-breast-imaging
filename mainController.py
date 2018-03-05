@@ -21,7 +21,7 @@ class MainController():
             self.dialog.clear()
             self.dialog.show()
             self.dialog.sendMsg("Running Acquisition", "red")
-            #self.beginAcquisition()
+            self.beginAcquisition()
         else:
             # open error dialog
             print("Error: check highlighted input fields")
