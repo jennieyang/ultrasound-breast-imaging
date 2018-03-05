@@ -16,11 +16,12 @@ class MainView():
     def setParams(self, iv):
         iv.setMapping(self.getTableItems(self.form.tableWidget_transMapping))
     
-        invalidTrans = iv.setTransSeq(self.getTableItems(self.form.tableWidget_transConfig))
+        #invalidTrans = 
+        iv.setTransSeq(self.getTableItems(self.form.tableWidget_transConfig))
         # highlight invalid tx cells
-        self.setCellHighlight(invalidTrans[0], 0)
+        #self.setCellHighlight(invalidTrans[0], 0)
         # highlight invalid rx cells
-        self.setCellHighlight(invalidTrans[1], 1)
+        #self.setCellHighlight(invalidTrans[1], 1)
         
         iv.setWaveSelection(self.getWaveSelection())
         iv.setWaveFile(self.form.lineEdit_waveFileName.text())

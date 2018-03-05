@@ -39,9 +39,9 @@ class InputValidator():
                 boardLetter = switchId[0].upper()
                 switchNum = int(switchId[1:])
                 if ord(boardLetter) < ord('A') or ord(boardLetter) > ord('D') or switchNum < 1 or switchNum > 15:
-                    print('invalid switch id')
+                    print('Error: Invalid switch id', switchId)
             except Exception:
-                print ('invalid switch id)
+                print ('Error: Invalid switch id', switchId)
                 
             # check for invalid mapping: more than one transducer number maps to same switch id
             if switchId in reverse:
@@ -52,20 +52,45 @@ class InputValidator():
                     duplicates[switchId] = [ reverse[switchId], transNum ]
             else:
                 reverse[switchId] = transNum
-        print(duplicates)
+        if len(duplicates) != 0:
+            valid = False
+            print(duplicates)
         
     def getTransSeq(self):
         return self.transSeq
         
     def setTransSeq(self, value):
-        seq = []
-        for r in range(0, len(value)):
-            txList = value[r][0]
-            rxList = value[r][1]
-            trans = utility.parse(txList,rxList) # parse string entry and order values
-            seq.append(trans)
-        self.transSeq = seq
-        return (self.validateTx(), self.validateRx())
+        switchSeq = []
+        for n in range(0, len(value)):
+            txList = [x.strip() for x in value[n][0].split(',')]
+            rxList = [x.strip() for x in value[n][1].split(',')]
+        
+            seq = {}
+            for t in range(0, len(txList)):
+                transNum = txList[t]
+                if transNum in self.mapping: # mapping found for transducer number
+                    txList[t] = self.mapping[transNum]
+                else:
+                    error = "Invalid transducer number: Mapping not found for transducer " + transNum
+                    seq['txErrors'] = [error]
+                    print(error)
+            seq['tx'] = txList
+            
+            for r in range(0, len(rxList)):
+                transNum = rxList[r]
+                if transNum in self.mapping: # mapping found for transducer number
+                    rxList[r] = self.mapping[transNum]
+                else:
+                    error = "Invalid transducer number: Mapping not found for transducer " + transNum
+                    seq['rxErrors'] = [error]
+                    print(error)
+            seq['rx'] = rxList
+            
+            print(seq)
+            switchSeq.append(seq)
+        
+        #self.transSeq = seq
+        #return (self.validateTx(), self.validateRx())
     
     def getNumSeq(self):
         return len(self.transSeq)
@@ -75,7 +100,9 @@ class InputValidator():
         for row in range(0, len(self.transSeq)):
             txList = self.transSeq[row][0]
             # only one transmitter allowed
-            # must be between 1 and 60 (inclusive)
+            if (len(txList) != 1):
+                invalidRows.append(row)
+            
             if (len(txList) != 1) or (txList[0] < 1) or (txList[0] > 60):
                 invalidRows.append(row)
                 self.valid = False
@@ -116,7 +143,7 @@ class InputValidator():
     
     def getWaveSelection(self):
         return self.waveSelection
-        
+      
     def setWaveSelection(self, value):
         self.waveSelection = value
 		
