@@ -14,13 +14,15 @@ class MainView():
         self.numCycEntered = False
     
     def setParams(self, iv):
-        iv.setMapping(self.getTableItems(self.form.tableWidget_transMapping))
+        invalidMappings = iv.setMapping(self.getTableItems(self.form.tableWidget_transMapping))
+        self.setCellHighlight(self.form.tableWidget_transMapping, invalidMappings, 1)
+        
         iv.setTransSeq(self.getTableItems(self.form.tableWidget_transConfig))
         invalidTrans = iv.checkErrors()
         # invalid tx input
-        self.setCellHighlight(invalidTrans[0], 0)
+        self.setCellHighlight(self.form.tableWidget_transConfig, invalidTrans[0], 0)
         # invalid rx input
-        self.setCellHighlight(invalidTrans[1], 1)
+        self.setCellHighlight(self.form.tableWidget_transConfig, invalidTrans[1], 1)
         
         iv.setWaveSelection(self.getWaveSelection())
         iv.setWaveFile(self.form.lineEdit_waveFileName.text())
@@ -31,19 +33,19 @@ class MainView():
         iv.setNumSamps(self.form.lineEdit_numSamps.text())
         iv.setSampRate(self.form.lineEdit_sampRate.text())
     
-    def setCellHighlight(self, list, col):
+    def setCellHighlight(self, table, list, col):
         indexes = [item[0] for item in list]
         errors = [item[1] for item in list]
         i = 0
-        for row in range(0, self.form.tableWidget_transConfig.rowCount()):
+        for row in range(0, table.rowCount()):
             if row in indexes:
-                self.form.tableWidget_transConfig.item(row, col).setBackground(QColor(255,100,100))
-                self.form.tableWidget_transConfig.item(row, col).setToolTip("\n".join(errors[i]))
+                table.item(row, col).setBackground(QColor(255,100,100))
+                table.item(row, col).setToolTip("\n".join(errors[i]))
                 i = i + 1
             else:
                 # reset highlight
-                self.form.tableWidget_transConfig.item(row, col).setBackground(QColor(255,255,255))
-                self.form.tableWidget_transConfig.item(row, col).setToolTip("")
+                table.item(row, col).setBackground(QColor(255,255,255))
+                table.item(row, col).setToolTip("")
     
     def getTableItems(self, table):
         items = []

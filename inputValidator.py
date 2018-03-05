@@ -41,11 +41,12 @@ class InputValidator():
             switchId = value[r][1]
             mapping[transNum] = switchId
         self.mapping = mapping
-        self.validateMapping()
+        return self.validateMapping()
         
     def validateMapping(self):
         reverse = {}
         duplicates = {}
+        invalidMappings = {}
         for transNum in self.mapping:
             switchId = self.mapping[transNum]
             # check for invalid switch id: board letter must be A,B,C,D and switch number 1-15
@@ -53,9 +54,11 @@ class InputValidator():
                 boardLetter = switchId[0].upper()
                 switchNum = int(switchId[1:])
                 if ord(boardLetter) < ord('A') or ord(boardLetter) > ord('D') or switchNum < 1 or switchNum > 15:
-                    print('Error: Invalid switch id', switchId)
+                    error = "Invalid switch ID: Must contain board letter A-D and transducer number 1-15"
+                    invalidMappings[int(transNum)-1] = [error]
             except Exception:
-                print ('Error: Invalid switch id', switchId)
+                error = "Invalid switch ID: Must contain board letter A-D and transducer number 1-15"
+                invalidMappings[int(transNum)-1] = [error]
                 
             # check for invalid mapping: more than one transducer number maps to same switch id
             if switchId in reverse:
@@ -66,9 +69,21 @@ class InputValidator():
                     duplicates[switchId] = [ reverse[switchId], transNum ]
             else:
                 reverse[switchId] = transNum
-        if len(duplicates) != 0:
+        
+        for switchId in duplicates:
+            error = "Invalid mapping: Transducer to switch must be a one-to-one mapping\n%s is mapped to %s" %(switchId, ','.join(duplicates[switchId]))
+            for transNum in duplicates[switchId]:
+                invalidMappings[int(transNum)-1] = [error]
+        
+        if len(invalidMappings) != 0:
             valid = False
-            print(duplicates)
+        
+        indexedInvalid = []
+        for index in sorted(invalidMappings):
+            errors = invalidMappings[index]
+            indexedInvalid.append((index, errors))
+
+        return indexedInvalid
         
     def getSwitchSeq(self):
         return self.switchSeq
