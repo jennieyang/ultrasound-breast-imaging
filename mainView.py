@@ -43,6 +43,7 @@ class MainView():
             else:
                 # reset highlight
                 self.form.tableWidget_transConfig.item(row, col).setBackground(QColor(255,255,255))
+                self.form.tableWidget_transConfig.item(row, col).setToolTip("")
     
     def getTableItems(self, table):
         items = []
