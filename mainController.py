@@ -26,8 +26,6 @@ class MainController():
         else:
             # open error dialog
             self.errorDialog = QMessageBox.critical(None,'Error',"Invalid input: check highlighted fields", QMessageBox.Ok)
-            
-            print("Error: check highlighted input fields")
         
     def validateTestInput(self):
         iv = inputValidator.InputValidator()

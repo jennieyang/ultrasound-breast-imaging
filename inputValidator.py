@@ -92,7 +92,6 @@ class InputValidator():
                 else:
                     error = "Invalid transducer number: Mapping not found for transducer " + transNum
                     seq['txErrors'].append(error)
-                    print(error)
             seq['tx'] = txList
             
             for r in range(0, len(rxList)):
@@ -102,7 +101,6 @@ class InputValidator():
                 else:
                     error = "Invalid transducer number: Mapping not found for transducer " + transNum
                     seq['rxErrors'].append(error)
-                    print(error)
             seq['rx'] = rxList
 
             switchSeq.append(seq)
@@ -123,7 +121,6 @@ class InputValidator():
             if (len(txList) != 1):
                 error = "Invalid Tx: Only one transmitting transducer allowed"
                 seq['txErrors'].append(error)
-                print(error)
         
     def validateRx(self):
         NUM_BOARDS = 4
