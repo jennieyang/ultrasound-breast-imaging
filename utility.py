@@ -44,16 +44,3 @@ def freqToPW(freq, numCycles):
 def PWToFreq(pw, numCycles):
     freq = 1 / ( float(pw) / int(numCycles) )
     return '{:0f}'.format(freq)
-
-def parse(txList, rxList):
-    txVals = 0
-    rxVals = 0
-    try:
-        txVals = [int(x) for x in txList.split(',')]
-        rxVals = [int(x) for x in rxList.split(',')]
-    except:
-        print("There was an error parsing values")
-    
-    txVals.sort()
-    rxVals.sort()
-    return (txVals, rxVals)
