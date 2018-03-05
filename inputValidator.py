@@ -3,7 +3,7 @@ import utility
 class InputValidator():
     def __init__(self):
         self.mapping = None
-        self.transSeq = None
+        self.switchSeq = None
         self.waveSelection = None
         self.waveFile = None
         self.waveType = None
@@ -56,8 +56,8 @@ class InputValidator():
             valid = False
             print(duplicates)
         
-    def getTransSeq(self):
-        return self.transSeq
+    def getSwitchSeq(self):
+        return self.switchSeq
         
     def setTransSeq(self, value):
         switchSeq = []
@@ -66,13 +66,16 @@ class InputValidator():
             rxList = [x.strip() for x in value[n][1].split(',')]
         
             seq = {}
+            seq['txErrors'] = []
+            seq['rxErrors'] = []
+            
             for t in range(0, len(txList)):
                 transNum = txList[t]
                 if transNum in self.mapping: # mapping found for transducer number
                     txList[t] = self.mapping[transNum]
                 else:
                     error = "Invalid transducer number: Mapping not found for transducer " + transNum
-                    seq['txErrors'] = [error]
+                    seq['txErrors'].append(error)
                     print(error)
             seq['tx'] = txList
             
@@ -82,33 +85,28 @@ class InputValidator():
                     rxList[r] = self.mapping[transNum]
                 else:
                     error = "Invalid transducer number: Mapping not found for transducer " + transNum
-                    seq['rxErrors'] = [error]
+                    seq['rxErrors'].append(error)
                     print(error)
             seq['rx'] = rxList
-            
-            print(seq)
+
             switchSeq.append(seq)
-        
-        #self.transSeq = seq
-        #return (self.validateTx(), self.validateRx())
+        self.switchSeq = switchSeq
+        self.validateTx()
+        self.validateRx()
     
     def getNumSeq(self):
         return len(self.transSeq)
     
     def validateTx(self):
-        invalidRows = []
-        for row in range(0, len(self.transSeq)):
-            txList = self.transSeq[row][0]
+        for seq in self.switchSeq:
+            txList = seq['tx']
             # only one transmitter allowed
             if (len(txList) != 1):
-                invalidRows.append(row)
-            
-            if (len(txList) != 1) or (txList[0] < 1) or (txList[0] > 60):
-                invalidRows.append(row)
-                self.valid = False
-            row = row + 1
-        return invalidRows
-    
+                error = "Invalid Tx: Only one transmitting transducer allowed"
+                seq['txErrors'].append(error)
+                print(error)
+        print(self.switchSeq)
+        
     def validateRx(self):
         NUM_BOARDS = 4
         invalidRows = []
