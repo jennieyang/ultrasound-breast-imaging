@@ -460,7 +460,7 @@
            <number>2</number>
           </property>
           <attribute name="horizontalHeaderVisible">
-           <bool>true</bool>
+           <bool>false</bool>
           </attribute>
           <attribute name="horizontalHeaderHighlightSections">
            <bool>false</bool>
@@ -742,11 +742,28 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
+  <tabstop>lineEdit_mappingFileName</tabstop>
+  <tabstop>pushButton_mappingBrowse</tabstop>
+  <tabstop>tableWidget_transMapping</tabstop>
+  <tabstop>pushButton_saveMapping</tabstop>
+  <tabstop>lineEdit_transFileName</tabstop>
+  <tabstop>pushButton_transBrowse</tabstop>
+  <tabstop>tableWidget_transConfig</tabstop>
+  <tabstop>pushButton_addRow</tabstop>
+  <tabstop>pushButton_saveTrans</tabstop>
   <tabstop>radioButton_loadWaveFile</tabstop>
-  <tabstop>radioButton_selectWaveform</tabstop>
   <tabstop>lineEdit_waveFileName</tabstop>
   <tabstop>pushButton_waveBrowse</tabstop>
+  <tabstop>radioButton_selectWaveform</tabstop>
   <tabstop>comboBox_waveform</tabstop>
+  <tabstop>lineEdit_numCycles</tabstop>
+  <tabstop>lineEdit_freq</tabstop>
+  <tabstop>lineEdit_pulseWidth</tabstop>
+  <tabstop>lineEdit_numSamps</tabstop>
+  <tabstop>lineEdit_sampRate</tabstop>
+  <tabstop>pushButton_runTest</tabstop>
+  <tabstop>pushButton_begin</tabstop>
+  <tabstop>tabWidget</tabstop>
  </tabstops>
  <resources/>
  <connections/>
