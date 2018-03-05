@@ -77,10 +77,11 @@ class InputValidator():
         
         if len(invalidMappings) != 0:
             self.valid = False
-            indexedInvalid = []
-            for index in sorted(invalidMappings):
-                errors = invalidMappings[index]
-                indexedInvalid.append((index, errors))
+            
+        indexedInvalid = []
+        for index in sorted(invalidMappings):
+            errors = invalidMappings[index]
+            indexedInvalid.append((index, errors))
         
         return indexedInvalid
         

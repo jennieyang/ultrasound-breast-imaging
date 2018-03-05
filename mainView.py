@@ -12,6 +12,7 @@ class MainView():
         self.freqEntered = False
         self.pwEntered = False
         self.numCycEntered = False
+        self.errorDialog = None
     
     def setParams(self, iv):
         invalidMappings = iv.setMapping(self.getTableItems(self.form.tableWidget_transMapping))
@@ -153,7 +154,7 @@ class MainView():
             for s in sequence:
                 self.addTableItem(s[0], s[1])
         except:
-            print("There was an error parsing selected transducer file " + filepath)
+            self.errorDialog = QMessageBox.critical(None,'Error',"There was an error parsing selected transducer file " + filepath, QMessageBox.Ok)
         
     def updateMappingTable(self, filepath):
         # read selected config file
@@ -161,7 +162,7 @@ class MainView():
             mapping = utility.loadTransducerMapping(filepath)
             self.setMapping(mapping)
         except:
-            print("There was an error parsing selected mapping file " + filepath)
+            self.errorDialog = QMessageBox.critical(None,'Error',"There was an error parsing selected mapping file " + filepath, QMessageBox.Ok)
 
     '''@TODO: re-factor code below'''
     def freqInputHandler(self):
