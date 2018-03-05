@@ -76,13 +76,12 @@ class InputValidator():
                 invalidMappings[int(transNum)-1] = [error]
         
         if len(invalidMappings) != 0:
-            valid = False
+            self.valid = False
+            indexedInvalid = []
+            for index in sorted(invalidMappings):
+                errors = invalidMappings[index]
+                indexedInvalid.append((index, errors))
         
-        indexedInvalid = []
-        for index in sorted(invalidMappings):
-            errors = invalidMappings[index]
-            indexedInvalid.append((index, errors))
-
         return indexedInvalid
         
     def getSwitchSeq(self):
