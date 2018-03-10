@@ -69,10 +69,11 @@ always @ (posedge clk or negedge reset_n)
 			2'b01: begin
 				read_control_go <= 0;
 				user_read_ack <= 0;
-//				if (user_read_data_available == 1)		// data not available, skip check
-//					state <= 2'b10;
-//				else 
+				if (user_read_data_available == 1) begin	
 					state <= 2'b10;
+				end else begin
+					state <= 2'b01;
+				end
 			end // state 1
 			
 			2'b10: begin
@@ -87,7 +88,6 @@ always @ (posedge clk or negedge reset_n)
 					start_address <= (start_address + num_bytes);
 					state <= 2'b00;
 				end else begin
-					//start_address <= start_address;
 					state <= 2'b01;
 				end
 			end // state 3
