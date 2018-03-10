@@ -13,7 +13,7 @@ module sdram_write (
 		// External Pins
 		input  clk,
 		input  reset_n,
-		input stop_write,					// so not trying to read and write at the same time
+		input stop_write,			// so not trying to read and write at the same time
 		//input [7:0] num_bytes,		// from SPI module
 		//input [31:0] data_out,
 		output [2:0] LEDG,
@@ -86,7 +86,7 @@ reg [31:0] data_to_ram; //change to output to see in SignalTap
 always @ (posedge rx_clk_out) begin
 	case(st)
 		2'b00: begin
-			if (rx_data_out[7:0] == 8'h1F) begin // works with 8'h1F
+			if (rx_data_out[7:0] == 8'hFF) begin 
 				data_align_pulse <=0;
 				adc_data_ready <= 0;
 				st <= 2'b01; 
@@ -123,16 +123,14 @@ end //always
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 // SDRAM WRITE
 
-wire [31:0] num_bytes = 32'h00000040; 						// from SPI module: number of bytes to store in RAM - should be a multiple of 4 (<255) for 32-bit data
-wire [31:0] dout1 = 32'h12345678;
-wire [31:0] dout2 = 32'h98765432;					// data to be stored in RAM - will come from A/D Rx module (or SPI for testing)
+wire [31:0] num_bytes = 32'h00000040; 			// from SPI module: number of bytes to store in RAM - should be a multiple of 4 (<255) for 32-bit data
 reg [1:0] state;
 reg [31:0] base_address = 32'h00000000;
 
 // define constants
-assign write_control_fixed_location = 1; 	// master address unchanging
+assign write_control_fixed_location = 1; 		// master address unchanging
 assign control_write_base = base_address ;		// must be a mulitple of 4 for 32-bit data		
-assign control_write_length = num_bytes; 			// must be a mulitple of 4 for 32-bit data
+assign control_write_length = num_bytes; 		// must be a mulitple of 4 for 32-bit data
 
 // for debugging
 reg full;
