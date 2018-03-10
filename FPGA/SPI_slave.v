@@ -14,8 +14,6 @@ Changes:
 	- Integrated proj w/ altlvds_rx
 	- 'to_sdram' will now contain info such as number of bytes to store 
 
-TO DO (as of Feb 6): check why zeros are sent to sdram module
-
 Hannah Fogel
 
 */
