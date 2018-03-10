@@ -2,13 +2,7 @@
 
 Module to control reading from SDRAM 
 
-Still To Do: 
-1) Add control line 'start_read' to control whether 'control_go' should be asserted or not 
-if 'start_read' == 0, should stay in state 0
-
-2) Integrate with SPI module
-
-Last Modified: 25 Jan 2018, 10:45 am
+Last Modified: 25 Jan 2018
 
 Hannah Fogel
 
