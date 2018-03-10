@@ -2,7 +2,7 @@ import PyQt5
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
-import utility
+import raspi.utility
 
 class MainView():
     def __init__(self, form):
@@ -75,13 +75,13 @@ class MainView():
         filepath = self.saveFile('Text File (*.txt)')
         if filepath != '':
             sequence = self.getTableItems(self.form.tableWidget_transConfig)
-            utility.saveTransducerSeq(filepath, sequence)
+            raspi.utility.saveTransducerSeq(filepath, sequence)
     
     def saveMappingFile(self):
         filepath = self.saveFile('INI File (*.ini)')
         if filepath != '':
             mapping = self.getTableItems(self.form.tableWidget_transMapping)
-            utility.saveTransducerMapping(filepath, mapping)
+            raspi.utility.saveTransducerMapping(filepath, mapping)
     
     def saveFile(self, saveType):
         dlg = QFileDialog()
@@ -150,7 +150,7 @@ class MainView():
     def updateTransTable(self, filepath):
         # read selected config file
         try:
-            sequence = utility.getTransducerSeq(filepath)
+            sequence = raspi.utility.getTransducerSeq(filepath)
             for s in sequence:
                 self.addTableItem(s[0], s[1])
         except:
@@ -159,7 +159,7 @@ class MainView():
     def updateMappingTable(self, filepath):
         # read selected config file
         try:
-            mapping = utility.loadTransducerMapping(filepath)
+            mapping = raspi.utility.loadTransducerMapping(filepath)
             self.setMapping(mapping)
         except:
             self.errorDialog = QMessageBox.critical(None,'Error',"There was an error parsing selected mapping file " + filepath, QMessageBox.Ok)
@@ -178,7 +178,7 @@ class MainView():
             self.form.lineEdit_pulseWidth.clear()
             if self.numCycEntered == True:
                 try:
-                    self.form.lineEdit_pulseWidth.setText(utility.freqToPW(freq, numCycles))
+                    self.form.lineEdit_pulseWidth.setText(raspi.utility.freqToPW(freq, numCycles))
                 except Exception:
                     pass
     
@@ -195,7 +195,7 @@ class MainView():
             self.form.lineEdit_freq.clear()
             if self.numCycEntered == True:
                 try:
-                    self.form.lineEdit_freq.setText(utility.PWToFreq(pw, numCycles))
+                    self.form.lineEdit_freq.setText(raspi.utility.PWToFreq(pw, numCycles))
                 except Exception:
                     pass
     
@@ -213,11 +213,11 @@ class MainView():
             self.numCycEntered = True
             if self.freqEntered:
                 try:
-                    self.form.lineEdit_pulseWidth.setText(utility.freqToPW(freq, numCycles))
+                    self.form.lineEdit_pulseWidth.setText(raspi.utility.freqToPW(freq, numCycles))
                 except Exception:
                     pass
             if self.pwEntered:
                 try:
-                    self.form.lineEdit_freq.setText(utility.PWToFreq(pw, numCycles))
+                    self.form.lineEdit_freq.setText(raspi.utility.PWToFreq(pw, numCycles))
                 except Exception:
                     pass

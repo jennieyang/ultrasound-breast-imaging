@@ -3,17 +3,17 @@ import time
 import PyQt5
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
-import gui.mainwindowUi
-import gui.dialogUi
-import mainView
-import mainController
+import raspi.gui.mainwindowUi
+import raspi.gui.dialogUi
+import raspi.mainView
+import raspi.mainController
 
-class MainWindow(QMainWindow, gui.mainwindowUi.Ui_MainWindow):
+class MainWindow(QMainWindow, raspi.gui.mainwindowUi.Ui_MainWindow):
     def __init__(self, controller):
         super().__init__()
         self.setupUi(self) # gets defined in the UI file
         
-        view = mainView.MainView(self)
+        view = raspi.mainView.MainView(self)
         
         dialog = Dialog()
         
@@ -42,7 +42,7 @@ class MainWindow(QMainWindow, gui.mainwindowUi.Ui_MainWindow):
         self.pushButton_runTest.clicked.connect(controller.validateTestInput)
         
 
-class Dialog(QDialog, gui.dialogUi.Ui_Dialog):
+class Dialog(QDialog, raspi.gui.dialogUi.Ui_Dialog):
     def __init__(self):
         super().__init__(None, Qt.WindowSystemMenuHint | Qt.WindowTitleHint | Qt.WindowCloseButtonHint) # remove ? tooltip 
         self.setupUi(self)
@@ -56,7 +56,7 @@ class Dialog(QDialog, gui.dialogUi.Ui_Dialog):
         
 def main():
     app = QApplication(sys.argv)
-    controller = mainController.MainController()
+    controller = raspi.mainController.MainController()
     window = MainWindow(controller)
     window.show()
     # without this, the script exits immediately.

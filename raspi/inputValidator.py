@@ -1,4 +1,4 @@
-import utility
+import raspi.utility as utility
 
 class InputValidator():
     def __init__(self):

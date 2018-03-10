@@ -1,10 +1,10 @@
 import PyQt5
 from PyQt5.QtWidgets import *
-import raspi.switch
-import raspi.waveformGenerator
-import raspi.fpga
-import utility
-import inputValidator
+import raspi.device.switch
+import raspi.device.waveformGenerator
+import raspi.device.fpga
+import raspi.utility
+import raspi.inputValidator
 
 class MainController():
     def setup(self, dialog, view):
@@ -14,7 +14,7 @@ class MainController():
         self.iv = None
         
     def validateAcqInput(self):
-        iv = inputValidator.InputValidator()
+        iv = raspi.inputValidator.InputValidator()
         self.iv = iv
         self.view.setParams(iv)
         
@@ -28,10 +28,10 @@ class MainController():
             self.errorDialog = QMessageBox.critical(None,'Error',"Invalid input: check highlighted fields", QMessageBox.Ok)
         
     def validateTestInput(self):
-        iv = inputValidator.InputValidator()
+        iv = raspi.inputValidator.InputValidator()
         self.iv = iv
         '''@TODO: remove hard-coded file path'''
-        cfg = utility.ConfigFileParser("C:/Users/Jennie/Desktop/Capstone/default.ini")
+        cfg = raspi.utility.ConfigFileParser("C:/Users/Jennie/Desktop/Capstone/default.ini")
         iv.setTransSeq(cfg.getTransducerSeq("TEST"))
         iv.setWaveSelection(0)
         iv.setWaveType("Sinusoid")
@@ -50,13 +50,13 @@ class MainController():
     def beginAcquisition(self):
         self.dialog.sendMsg("Executing initialization sequence", "red")
         # initialize waveform generator
-        wg = raspi.waveformGenerator.WaveformGenerator(self.dialog, self.iv.getWaveSelection(), self.iv.getWave(), self.iv.getNumCycles(), self.iv.getFreq(), self.iv.pulseWidth)
+        wg = raspi.device.waveformGenerator.WaveformGenerator(self.dialog, self.iv.getWaveSelection(), self.iv.getWave(), self.iv.getNumCycles(), self.iv.getFreq(), self.iv.pulseWidth)
         wg.configure()
         # initialize fpga
-        fpga = raspi.fpga.FPGA(self.dialog, self.iv.getNumSamps(), self.iv.getSampRate())
+        fpga = raspi.device.fpga.FPGA(self.dialog, self.iv.getNumSamps(), self.iv.getSampRate())
         fpga.configure()
         # initialize switch
-        switch = raspi.switch.Switch(self.dialog)
+        switch = raspi.device.switch.Switch(self.dialog)
         
         # execute sequences
         numSequences = self.iv.getNumSeq()
