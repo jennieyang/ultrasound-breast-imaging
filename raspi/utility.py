@@ -43,4 +43,4 @@ def freqToPW(freq, numCycles):
 
 def PWToFreq(pw, numCycles):
     freq = 1 / ( float(pw) / int(numCycles) )
-    return '{:0f}'.format(freq)
+    return '{:.2f}'.format(freq)

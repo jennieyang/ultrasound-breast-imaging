@@ -183,7 +183,7 @@
           <item row="5" column="0">
            <widget class="QLabel" name="label_pulseWidth">
             <property name="text">
-             <string>Pulse Width (ns):</string>
+             <string>Pulse Width (μs):</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -237,7 +237,7 @@
              </size>
             </property>
             <property name="text">
-             <string>Frequency (Hz):</string>
+             <string>Frequency (MHz):</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
