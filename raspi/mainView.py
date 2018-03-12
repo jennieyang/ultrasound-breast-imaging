@@ -164,7 +164,6 @@ class MainView():
         except:
             self.errorDialog = QMessageBox.critical(None,'Error',"There was an error parsing selected mapping file " + filepath, QMessageBox.Ok)
 
-    '''@TODO: re-factor code below'''
     def freqInputHandler(self):
         freq = self.form.lineEdit_freq.text()
         numCycles = self.form.lineEdit_numCycles.text()
